@@ -1,90 +1,60 @@
 import React from 'react';
 // import { Formik } from 'formik';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const LoginPage = () => {
-const formik = useFormik({
-
+   const formik = useFormik({
      initialValues: {
-
-       firstName: '',
-
-       lastName: '',
-
-       email: '',
-
+       login: '',
+       password: '',
      },
 
+     validationSchema: Yup.object({
+       login: Yup.string()
+         .max(20, 'Must be 20 characters or less')
+         .required('Required'),
+       password: Yup.string()
+         .min(6, 'Must be 6 characters of more')
+         .max(20, 'Must be 20 characters or less')
+         .required('Required'),
+     }),
      onSubmit: values => {
-
        alert(JSON.stringify(values, null, 2));
-
      },
-
    });
 
    return (
-
      <form onSubmit={formik.handleSubmit}>
-
-       <label htmlFor="firstName">First Name</label>
-
+      <h1>Войти</h1>
        <input
-
-         id="firstName"
-
-         name="firstName"
-
+         id="login"
+         name="login"
          type="text"
-
          onChange={formik.handleChange}
-
-         value={formik.values.firstName}
-
+         onBlur={formik.handleBlur}
+         value={formik.values.login}
+         placeholder='Ваш ник'
        />
-
- 
-
-       <label htmlFor="lastName">Last Name</label>
-
+       {formik.touched.login && formik.errors.login ? (
+         <div>{formik.errors.login}</div>
+       ) : null}
        <input
-
-         id="lastName"
-
-         name="lastName"
-
-         type="text"
-
+         id="password"
+         name="password"
+         type="password"
          onChange={formik.handleChange}
-
-         value={formik.values.lastName}
-
+         onBlur={formik.handleBlur}
+         value={formik.values.password}
+         placeholder='Ваш пароль'
        />
+       {formik.touched.password && formik.errors.password ? (
+         <div>{formik.errors.password}</div>
+       ) : null}
 
- 
-
-       <label htmlFor="email">Email Address</label>
-
-       <input
-
-         id="email"
-
-         name="email"
-
-         type="email"
-
-         onChange={formik.handleChange}
-
-         value={formik.values.email}
-
-       />
-
- 
-
-       <button type="submit">Submit</button>
+       <button type="submit">Войти</button>
 
      </form>
-
    );
 }
 
