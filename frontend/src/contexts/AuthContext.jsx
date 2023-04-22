@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import AuthContext from "../contexts/index.jsx";
 
 const AuthProvider = ({ children }) => {
@@ -10,8 +10,17 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
+  const getAuthHeader = () => {
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    if (userId && userId.token) {
+      return { Authorization: `Bearer ${userId.token}` };
+    }
+
+    return {};
+  };
+
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{ loggedIn, logIn, logOut, getAuthHeader }}>
       {children}
     </AuthContext.Provider>
   );

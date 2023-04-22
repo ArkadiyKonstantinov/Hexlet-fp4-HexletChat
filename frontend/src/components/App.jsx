@@ -30,7 +30,6 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="*" element={<Page404 />} />
           <Route
             path="/"
             element={
@@ -40,6 +39,7 @@ const App = () => {
             }
           />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer

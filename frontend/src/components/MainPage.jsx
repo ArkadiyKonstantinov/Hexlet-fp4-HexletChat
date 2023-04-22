@@ -1,55 +1,33 @@
-import { routes } from "../routes.js";
-import axios from "axios";
+import { socket } from "../socket.js";
+import store from "../slices/index.js";
 import cn from "classnames";
-import io from "socket.io-client";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { channelsSelectors, channelsActions } from "../slices/channelsSlice.js";
 import { messagesSelectors, messagesActions } from "../slices/messagesSlice.js";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-
-const getAuthHeader = () => {
-  const userId = JSON.parse(localStorage.getItem("userId"));
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
-  }
-
-  return {};
-};
+import { Container, Row, Col, Form } from 'react-bootstrap';
+import useAuth from "../hooks/index.jsx";
+import fetchData from "../fetchData.js";
 
 const MainPage = () => {
-  const dispatch = useDispatch();
-  // const socket = io();
-  const [currentChannelId, setCurrentChannelId] = useState(null);
+  const dispatch = store.dispatch; 
+  const auth = useAuth();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get(routes.dataPath(), {
-        headers: getAuthHeader(),
-      });
-      const channels = data.channels.reduce(
-        (acc, channel) => ({ ...acc, [channel.id]: channel }),
-        {}
-      );
-      const messages = data.messages.reduce(
-        (acc, message) => ({ ...acc, [message.id]: message }),
-        {}
-      );
-      setCurrentChannelId(data.currentChannelId);
-      dispatch(channelsActions.setChannels(channels));
-      dispatch(messagesActions.addMessages(messages));
-    };
-    fetchData();
-  }, [dispatch]);
+    const fetchUserData = async () => {
+      const authHeader = auth.getAuthHeader();
+      dispatch(fetchData(authHeader));
+    }
+    fetchUserData();
+  }, [dispatch, auth]);
 
   const channels = useSelector(channelsSelectors.selectAll);
+  const currentChannelId = useSelector((state) => state.channels.currentChannelId)
   const currentChannel = useSelector((state) =>
     channelsSelectors.selectById(state, currentChannelId)
   );
   const messages = useSelector(messagesSelectors.selectAll);
+  console.log(messages);
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
