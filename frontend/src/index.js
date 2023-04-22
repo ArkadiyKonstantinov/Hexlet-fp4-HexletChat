@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import AuthProvider from "./contexts/AuthContext.jsx";
 
-import "./styles.scss";
+import "./assets/styles.scss";
 import App from "./components/App.jsx";
 import store from "./slices/index.js";
 
