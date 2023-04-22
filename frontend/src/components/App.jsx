@@ -6,9 +6,11 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
+import Header from "./Header.jsx";
 import Page404 from "./Page404.jsx";
 import MainPage from "./MainPage.jsx";
 import LoginPage from "./LoginPage.jsx";
+import { ToastContainer } from "react-toastify";
 import useAuth from "../hooks/index.jsx";
 
 const PrivateRoute = ({ children }) => {
@@ -26,6 +28,7 @@ const App = () => {
   return (
     <div className="d-flex flex-column h-100">
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="*" element={<Page404 />} />
           <Route
@@ -39,6 +42,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 };

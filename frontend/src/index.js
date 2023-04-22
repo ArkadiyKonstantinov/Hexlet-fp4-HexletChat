@@ -6,7 +6,6 @@ import AuthProvider from "./contexts/AuthContext.jsx";
 import "./styles.scss";
 import App from "./components/App.jsx";
 import store from "./slices/index.js";
-import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById("chat"));
 root.render(
@@ -14,7 +13,6 @@ root.render(
     <AuthProvider>
       <React.StrictMode>
         <App />
-        <ToastContainer />
       </React.StrictMode>
     </AuthProvider>
   </Provider>
