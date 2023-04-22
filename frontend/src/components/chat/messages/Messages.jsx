@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { channelsSelectors, channelsActions } from "../../../slices/channelsSlice.js";
-import { messagesSelectors, messagesActions } from "../../../slices/messagesSlice.js";
+import {
+  channelsSelectors,
+  channelsActions,
+} from "../../../slices/channelsSlice.js";
+import {
+  messagesSelectors,
+  messagesActions,
+} from "../../../slices/messagesSlice.js";
 import { Col, Form, Button } from "react-bootstrap";
-import { BsArrowRightSquare } from "react-icons/bs";
+import MessageForm from "./MessageForm.jsx";
 
 const Messages = () => {
   const currentChannelId = useSelector(
@@ -12,6 +18,8 @@ const Messages = () => {
   const currentChannel = useSelector((state) =>
     channelsSelectors.selectById(state, currentChannelId)
   );
+
+
 
   return (
     <Col className="p-0 h-100">
@@ -26,22 +34,7 @@ const Messages = () => {
           id="messages-box"
           className="chat-messages overflow-auto px-5"
         ></div>
-        <div className="mt-auto px-5 py-3">
-          <Form noValidate className="py-1 border rounded-2">
-            <Form.Group className="input-group has-validation">
-              <Form.Control
-                name="body"
-                aria-label="Новое сообщение"
-                placeholder="Введите сообщение..."
-                className="border-0 p-0 ps-2"
-              />
-              <Button variant="group-vertical">
-                <BsArrowRightSquare />
-                <span className="visually-hidden">Отправить</span>
-              </Button>
-            </Form.Group>
-          </Form>
-        </div>
+        <MessageForm currentChannel={currentChannelId} />
       </div>
     </Col>
   );

@@ -6,7 +6,6 @@ export const socket = io();
 const dispatch = store.dispatch; 
 
 socket.on("newMessage", (messageWithId) => {
-  console.log(messageWithId);
   dispatch(messagesActions.addMessage(messageWithId));
+  console.log(messageWithId);
 });
-// socket.emit("newMessage", { message: "Hello!" });
