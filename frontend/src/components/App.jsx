@@ -42,7 +42,15 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        theme="light"
+      />
     </div>
   );
 };

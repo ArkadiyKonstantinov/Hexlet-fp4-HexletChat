@@ -1,5 +1,13 @@
 import React, { useState, useRef } from "react";
-import { Image, Button, Form, Card, Container, Row, Col } from 'react-bootstrap'
+import {
+  Image,
+  Button,
+  Form,
+  Card,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
 import loginImg from "../assets/login.jpg";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -10,15 +18,6 @@ import { toast } from "react-toastify";
 import { routes } from "../routes.js";
 
 const LoginPage = () => {
-  const notify = () =>
-    toast.error("Ошибка сети", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-    });
-
   const [authFailed, setAuthFailed] = useState(false);
 
   const auth = useAuth();
@@ -44,7 +43,7 @@ const LoginPage = () => {
         const res = await axios.post(routes.loginPath(), values);
         localStorage.setItem("userId", JSON.stringify(res.data));
         auth.logIn();
-        const { from } = location.state || { from: { pathname: '/' } };
+        const { from } = location.state || { from: { pathname: "/" } };
         navigate(from);
       } catch (err) {
         formik.setSubmitting(false);
@@ -54,7 +53,7 @@ const LoginPage = () => {
           return;
         }
         if (err.isAxiosError && err.code === "ERR_NETWORK") {
-          notify();
+          toast.error("Ошибка сети");
           return;
         }
         throw err;
