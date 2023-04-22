@@ -6,11 +6,11 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
-import Page404 from "./components/Page404.jsx";
-import MainPage from "./components/MainPage.jsx";
-import LoginPage from "./components/LoginPage.jsx";
-import useAuth from "./hooks/index.jsx";
-import AuthContext from "./contexts/index.jsx";
+import Page404 from "./Page404.jsx";
+import MainPage from "./MainPage.jsx";
+import LoginPage from "./LoginPage.jsx";
+import useAuth from "../hooks/index.jsx";
+import AuthContext from "../contexts/index.jsx";
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -41,22 +41,24 @@ const PrivateRoute = ({ children }) => {
 
 const App = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<Page404 />} />
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <MainPage />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <div className="d-flex flex-column h-100">
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="*" element={<Page404 />} />
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <MainPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </div>
   );
 };
 

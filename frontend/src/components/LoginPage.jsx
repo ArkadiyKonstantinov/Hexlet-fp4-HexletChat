@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ChatNavbar from "./ChatNavbar.jsx";
+import ChatNavbar from "./Header.jsx";
 import login from "../login.jpg";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -71,7 +71,7 @@ const LoginPage = () => {
   });
 
   return (
-    <div className="d-flex flex-column h-100">
+    <>
       <ChatNavbar />
       <Container fluid className="h-100">
         <Row className="justify-content-center align-content-center h-100">
@@ -133,7 +133,7 @@ const LoginPage = () => {
           </Col>
         </Row>
       </Container>
-    </div>
+    </>
   );
 };
 
