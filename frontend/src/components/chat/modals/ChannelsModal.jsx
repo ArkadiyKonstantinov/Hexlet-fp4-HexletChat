@@ -9,7 +9,7 @@ const modals = {
   renameChannel: RenameChannel,
 };
 
-const ChatModal = ({ modal, hideModal }) => {
+const ChannelsModal = ({ modal, hideModal }) => {
   if (!modal.type) {
     return null;
   }
@@ -18,4 +18,4 @@ const ChatModal = ({ modal, hideModal }) => {
   return <Component modal={modal} onHide={hideModal} />;
 };
 
-export default ChatModal;
+export default ChannelsModal;

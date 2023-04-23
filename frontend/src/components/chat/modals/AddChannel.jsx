@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { channelsSelectors } from "../../../slices/channelsSlice";
 import { toast } from "react-toastify";
 
-const AddChannel = ({ modal, onHide }) => {
+const AddChannel = ({ onHide }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsNames = channels.map((channel) => channel.name);
   const inputRef = useRef();
@@ -38,8 +38,8 @@ const AddChannel = ({ modal, onHide }) => {
   });
 
   return (
-    <Modal show>
-      <Modal.Header>
+    <Modal show centered>
+      <Modal.Header closeButton={onHide}>
         <Modal.Title>Добавить канал</Modal.Title>
       </Modal.Header>
       <Modal.Body>
