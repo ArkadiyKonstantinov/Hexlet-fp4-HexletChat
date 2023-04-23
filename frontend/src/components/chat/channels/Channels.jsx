@@ -8,14 +8,18 @@ import { BsPlusSquare } from "react-icons/bs";
 import { Col, Button } from "react-bootstrap";
 import Channel from "./Channel.jsx";
 
-const Channels = () => {
+const Channels = ({ showModal }) => {
   const channels = useSelector(channelsSelectors.selectAll);
 
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>Каналы</b>
-        <Button variant="qroup-vertical" className="p-0 text-primary">
+        <Button
+          variant="qroup-vertical"
+          className="p-0 text-primary"
+          onClick={() => showModal("addChannel")}
+        >
           <BsPlusSquare />
           <span className="visually-hidden">+</span>
         </Button>

@@ -16,7 +16,7 @@ const Channel = ({ channel }) => {
   );
   if (removable) {
     return (
-      <li key={id} className="nav-item w-100" j>
+      <li key={id} className="nav-item w-100">
         <Dropdown className="d-flex btn-group">
           <Button
             variant={id === currentChannelId ? "secondary" : "light"}
@@ -32,7 +32,7 @@ const Channel = ({ channel }) => {
             <span className="visually-hidden">Управление каналом</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item>Удаить</Dropdown.Item>
+            <Dropdown.Item>Удалить</Dropdown.Item>
             <Dropdown.Item>Переименовать</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
