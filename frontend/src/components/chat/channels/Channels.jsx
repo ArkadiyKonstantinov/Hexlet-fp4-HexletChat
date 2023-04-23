@@ -5,7 +5,7 @@ import {
   channelsActions,
 } from "../../../slices/channelsSlice.js";
 import { BsPlusSquare } from "react-icons/bs";
-import { Col, Button } from "react-bootstrap";
+import { Col, Button, Nav } from "react-bootstrap";
 import Channel from "./Channel.jsx";
 import ChannelsModal from "../modals/ChannelsModal.jsx";
 
@@ -41,14 +41,17 @@ const Channels = () => {
             <span className="visually-hidden">+</span>
           </Button>
         </div>
-        <ul
+        <Nav
           id="channels-box"
-          className="nav felx-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
+          variant="pills"
+          fill
+          as="ul"
+          className="felx-column px-2 mb-3 overflow-auto h-100 d-block"
         >
           {channels.map((channel) => (
             <Channel key={channel.id} channel={channel} showModal={showModal} />
           ))}
-        </ul>
+        </Nav>
       </Col>
       <ChannelsModal modal={modal} hideModal={hideModal} />
     </>

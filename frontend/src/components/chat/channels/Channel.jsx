@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Dropdown } from "react-bootstrap";
+import { Button, Dropdown, Nav } from "react-bootstrap";
 import { channelsActions } from "../../../slices/channelsSlice";
 
 const Channel = ({ channel, showModal }) => {
@@ -16,7 +16,7 @@ const Channel = ({ channel, showModal }) => {
   );
   if (removable) {
     return (
-      <li key={id} className="nav-item w-100">
+      <Nav.Item key={id} as="li" className="w-100">
         <Dropdown className="d-flex btn-group">
           <Button
             variant={id === currentChannelId ? "secondary" : "light"}
@@ -40,7 +40,7 @@ const Channel = ({ channel, showModal }) => {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-      </li>
+      </Nav.Item>
     );
   }
 
