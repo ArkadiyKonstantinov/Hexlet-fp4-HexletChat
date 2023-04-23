@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AuthContext from "../contexts/index.jsx";
 
 const AuthProvider = ({ children }) => {
-  const currentUsername = JSON.parse(localStorage.getItem("userId")).username;
+  const currentUsername = JSON.parse(localStorage.getItem("userId"))?.username;
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState(
     currentUsername ? currentUsername : null

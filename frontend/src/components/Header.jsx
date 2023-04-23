@@ -9,7 +9,7 @@ const ChatNavbar = () => {
     <Navbar className="shadow-sm navbar-expand-lg navbar-light bg-white">
       <Container>
         <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-        {auth.loggedIn ? (
+        {auth.loggedIn || auth.username !== null ? (
           <Button onClick={() => auth.logOut()} className="btn-primary">
             Выйти
           </Button>
