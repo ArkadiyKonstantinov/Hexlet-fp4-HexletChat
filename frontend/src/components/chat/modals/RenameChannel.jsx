@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { socket } from "../../../socket";
 import { useFormik } from "formik";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import { channelsSelectors } from "../../../slices/channelsSlice";
 import { toast } from "react-toastify";
@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 const RenameChannel = ({ modal, onHide }) => {
   const { channelName, id } = modal;
   const channels = useSelector(channelsSelectors.selectAll);
-  const channelsNames = channels.map((channel) => channel.name);
+  const channelsNames = channels
+    .map((channel) => channel.name)
+    .filter((name) => name !== channelName);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -41,11 +43,13 @@ const RenameChannel = ({ modal, onHide }) => {
         .max(20, "От 3 до 20 символов")
         .notOneOf(channelsNames, "Должно быть уникальным"),
     }),
+    validateOnChange: false,
+    validateOnBlur: false,
   });
 
   return (
     <Modal show centered>
-      <Modal.Header closeButton={onHide}>
+      <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>Переименовать канал</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -60,6 +64,7 @@ const RenameChannel = ({ modal, onHide }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.channelName}
+              isInvalid={formik.errors.channelName}
             />
             <Form.Label>Имя канала</Form.Label>
             <Form.Text className="invalid-feedback">

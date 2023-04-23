@@ -40,11 +40,13 @@ const AddChannel = ({ onHide }) => {
         .max(20, "От 3 до 20 символов")
         .notOneOf(channelsNames, "Должно быть уникальным"),
     }),
+    validateOnChange: false,
+    validateOnBlur: false,
   });
 
   return (
     <Modal show centered>
-      <Modal.Header closeButton={onHide}>
+      <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>Добавить канал</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -59,6 +61,9 @@ const AddChannel = ({ onHide }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.channelName}
+              isInvalid={
+                formik.errors.channelName && formik.touched.channelName
+              }
             />
             <Form.Label>Имя канала</Form.Label>
             <Form.Text className="invalid-feedback">

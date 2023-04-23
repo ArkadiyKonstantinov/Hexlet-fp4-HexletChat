@@ -18,7 +18,7 @@ const RemoveChannel = ({ modal, onHide }) => {
   };
   return (
     <Modal show centered>
-      <Modal.Header closeButton={onHide}>
+      <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>Удалить канал</Modal.Title>
       </Modal.Header>
       <Modal.Body>
