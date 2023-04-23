@@ -1,14 +1,16 @@
 import React, { useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import { socket } from "../../../socket.js";
+import useAuth from "../../../hooks/index.jsx";
 import { Form, Button } from "react-bootstrap";
 import { BsArrowRightSquare } from "react-icons/bs";
 
 const MessageForm = ({ currentChannelId }) => {
+  const auth = useAuth();
   const messageRef = useRef();
   useEffect(() => {
     messageRef.current.focus();
-  })
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -18,9 +20,10 @@ const MessageForm = ({ currentChannelId }) => {
       const message = {
         text: values.body,
         channelId: currentChannelId,
-        username: "",
+        username: auth.username,
       };
       socket.emit("newMessage", message);
+      formik.setSubmitting(false);
     },
   });
 

@@ -19,8 +19,6 @@ const Messages = () => {
     channelsSelectors.selectById(state, currentChannelId)
   );
 
-
-
   return (
     <Col className="p-0 h-100">
       <div className="d-flex flex-column h-100">
@@ -34,7 +32,7 @@ const Messages = () => {
           id="messages-box"
           className="chat-messages overflow-auto px-5"
         ></div>
-        <MessageForm currentChannel={currentChannelId} />
+        <MessageForm currentChannelId={currentChannelId} />
       </div>
     </Col>
   );
