@@ -14,18 +14,23 @@ const AddChannel = ({ onHide }) => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, [])
+  }, []);
 
   const formik = useFormik({
     initialValues: {
       channelName: "",
     },
     onSubmit: (values) => {
-      const { channelName } = values;
-      socket.emit('newChannel', { name: channelName }); 
-      formik.setSubmitting(false);
-      onHide();
-      toast.success('Канал создан')
+      try {
+        const { channelName } = values;
+        socket.emit("newChannel", { name: channelName });
+        formik.setSubmitting(false);
+        onHide();
+        toast.success("Канал создан");
+      } catch (err) {
+        toast.error("Не удалось добавить");
+        console.error(err);
+      }
     },
     validationSchema: Yup.object({
       channelName: Yup.string()

@@ -17,9 +17,9 @@ socket.on("newChannel", (channelWithId) => {
   console.log(channelWithId);
 });
 
-socket.on("removeChannel", (channel) => {
-  dispatch(channelsActions.removeChannel(channel));
-  console.log(channel);
+socket.on("removeChannel", (data) => {
+  dispatch(channelsActions.removeChannel(data));
+  console.log(data);
 });
 
 socket.on("renameChannel", (channel) => {

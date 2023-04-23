@@ -1,13 +1,7 @@
-import React, { useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  channelsSelectors,
-  channelsActions,
-} from "../../../slices/channelsSlice.js";
-import {
-  messagesSelectors,
-  messagesActions,
-} from "../../../slices/messagesSlice.js";
+import React from "react";
+import { useSelector } from "react-redux";
+import { channelsSelectors } from "../../../slices/channelsSlice.js";
+import { messagesSelectors } from "../../../slices/messagesSlice.js";
 import { Col } from "react-bootstrap";
 import MessageForm from "./MessageForm.jsx";
 
@@ -19,7 +13,11 @@ const Messages = () => {
     channelsSelectors.selectById(state, currentChannelId)
   );
   const messages = useSelector(messagesSelectors.selectAll);
-  const currentChannelMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
+  console.log("All messages");
+  console.log(messages);
+  const currentChannelMessages = messages.filter(
+    ({ channelId }) => channelId === currentChannelId
+  );
 
   return (
     <Col className="p-0 h-100">
@@ -28,7 +26,9 @@ const Messages = () => {
           <p className="m-0">
             <b># {currentChannel ? currentChannel.name : null}</b>
           </p>
-          <span className="text-muted">{currentChannelMessages.length} сообщений</span>
+          <span className="text-muted">
+            {currentChannelMessages.length} сообщений
+          </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {currentChannelMessages.map((message) => {

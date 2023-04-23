@@ -14,11 +14,18 @@ const Channels = () => {
     (state) => state.channels.currentChannelId
   );
   const channels = useSelector(channelsSelectors.selectAll);
-  const currntChannelName = channels.find(({ id }) => id === currentChannelId)?.name;
+  const currntChannelName = channels.find(
+    ({ id }) => id === currentChannelId
+  )?.name;
 
-  const [modal, setModal] = useState({ type: null, channelName: currntChannelName });
+  const [modal, setModal] = useState({
+    type: null,
+    channelName: null,
+    id: null,
+  });
   const hideModal = () => setModal({ type: null, channelName: null });
-  const showModal = (type, channelName = currntChannelName) => setModal({ type, channelName });
+  const showModal = (type, channelName = null, id = null) =>
+    setModal({ type, channelName, id });
 
   return (
     <>
@@ -39,7 +46,7 @@ const Channels = () => {
           className="nav felx-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
         >
           {channels.map((channel) => (
-            <Channel key={channel.id} channel={channel} />
+            <Channel key={channel.id} channel={channel} showModal={showModal} />
           ))}
         </ul>
       </Col>

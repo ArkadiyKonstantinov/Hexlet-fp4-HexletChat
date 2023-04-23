@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Dropdown } from "react-bootstrap";
 import { channelsActions } from "../../../slices/channelsSlice";
 
-const Channel = ({ channel }) => {
+const Channel = ({ channel, showModal }) => {
   const { id, name, removable } = channel;
   const dispatch = useDispatch();
 
@@ -32,8 +32,12 @@ const Channel = ({ channel }) => {
             <span className="visually-hidden">Управление каналом</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item>Удалить</Dropdown.Item>
-            <Dropdown.Item>Переименовать</Dropdown.Item>
+            <Dropdown.Item onClick={() => showModal("removeChannel", name, id)}>
+              Удалить
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => showModal("renameChannel", name, id)}>
+              Переименовать
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </li>
