@@ -1,20 +1,54 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import cn from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Dropdown } from "react-bootstrap";
+import { channelsActions } from "../../../slices/channelsSlice";
 
 const Channel = ({ channel }) => {
+  const { id, name, removable } = channel;
+  const dispatch = useDispatch();
+
+  const setCurrent = (id) => {
+    dispatch(channelsActions.setCurrentChannel(id));
+  };
+
   const currentChannelId = useSelector(
     (state) => state.channels.currentChannelId
   );
-  const channelButtonClass = cn("btn", "w-100", "rounded-0", "text-start", {
-    "btn-secondary": channel.id === currentChannelId,
-  });
+  if (removable) {
+    return (
+      <li key={id} className="nav-item w-100" j>
+        <Dropdown className="d-flex btn-group">
+          <Button
+            variant={id === currentChannelId ? "secondary" : "light"}
+            className="btn w-100 rounded-0 text-start"
+            onClick={() => setCurrent(id)}
+          >
+            {name}
+          </Button>
+          <Dropdown.Toggle
+            variant={id === currentChannelId ? "secondary" : "light"}
+            className="flex-grow-0 dropown-toggle-split"
+          >
+            <span className="visually-hidden">Управление каналом</span>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item>Удаить</Dropdown.Item>
+            <Dropdown.Item>Переименовать</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </li>
+    );
+  }
+
   return (
-    <li key={channel.id} className="nav-item w-100">
-      <button className={channelButtonClass}>
-        <span className="me-1">#</span>
-        {channel.name}
-      </button>
+    <li key={id} className="nav-item w-100">
+      <Button
+        variant={id === currentChannelId ? "secondary" : "light"}
+        className="btn w-100 rounded-0 text-start"
+        onClick={() => setCurrent(id)}
+      >
+        {name}
+      </Button>
     </li>
   );
 };
