@@ -8,7 +8,7 @@ import {
   messagesSelectors,
   messagesActions,
 } from "../../../slices/messagesSlice.js";
-import { Col, Form, Button } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import MessageForm from "./MessageForm.jsx";
 
 const Messages = () => {
@@ -18,6 +18,8 @@ const Messages = () => {
   const currentChannel = useSelector((state) =>
     channelsSelectors.selectById(state, currentChannelId)
   );
+  const messages = useSelector(messagesSelectors.selectAll);
+  const currentChannelMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
 
   return (
     <Col className="p-0 h-100">
@@ -26,12 +28,18 @@ const Messages = () => {
           <p className="m-0">
             <b># {currentChannel ? currentChannel.name : null}</b>
           </p>
-          <span className="text-muted">0 сообщений</span>
+          <span className="text-muted">{currentChannelMessages.length} сообщений</span>
         </div>
-        <div
-          id="messages-box"
-          className="chat-messages overflow-auto px-5"
-        ></div>
+        <div id="messages-box" className="chat-messages overflow-auto px-5">
+          {currentChannelMessages.map((message) => {
+            const { text, id, username } = message;
+            return (
+              <div key={id} className="text-break mb-2">
+                <b>{username}</b>: {text}
+              </div>
+            );
+          })}
+        </div>
         <MessageForm currentChannelId={currentChannelId} />
       </div>
     </Col>

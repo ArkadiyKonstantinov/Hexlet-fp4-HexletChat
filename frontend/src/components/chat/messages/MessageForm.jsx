@@ -24,6 +24,7 @@ const MessageForm = ({ currentChannelId }) => {
       };
       socket.emit("newMessage", message);
       formik.setSubmitting(false);
+      formik.values.body = "";
     },
   });
 
