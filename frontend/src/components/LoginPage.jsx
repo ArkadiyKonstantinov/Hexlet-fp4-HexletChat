@@ -16,11 +16,13 @@ import useAuth from "../hooks";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { routes } from "../routes.js";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
 
   const auth = useAuth();
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const usernameRef = useRef();
