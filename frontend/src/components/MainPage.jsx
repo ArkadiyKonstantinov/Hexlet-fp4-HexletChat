@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { socket } from "../socket.js";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import useAuth from "../hooks/index.jsx";

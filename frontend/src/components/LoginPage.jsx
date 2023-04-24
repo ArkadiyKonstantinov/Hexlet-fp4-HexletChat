@@ -13,7 +13,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
 import useAuth from "../hooks";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { routes } from "../routes.js";
 
@@ -29,13 +29,9 @@ const LoginPage = () => {
       username: "admin",
       password: "admin",
     },
-
     validationSchema: Yup.object({
-      username: Yup.string().required("Required"),
-      password: Yup.string()
-        .min(3, "Must be 6 characters of more")
-        .max(20, "Must be 20 characters or less")
-        .required("Required"),
+      username: Yup.string().required("Обязательное поле"),
+      password: Yup.string().required("Обязательное поле"),
     }),
     onSubmit: async (values) => {
       setAuthFailed(false);
@@ -66,7 +62,7 @@ const LoginPage = () => {
       <Row className="justify-content-center align-content-center h-100">
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
-            <Card.Body className="row p-5">
+            <Card.Body>
               <Row className="p-5">
                 <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                   <Image src={loginImg} roundedCircle="true" alt="Войти" />
@@ -76,42 +72,42 @@ const LoginPage = () => {
                     <h1 className="text-center mb-4">Войти</h1>
                     <Form.Floating className="mb-3">
                       <Form.Control
-                        isInvalid={authFailed}
                         id="username"
                         name="username"
                         autoComplete="username"
+                        placeholder="Ваш ник"
                         type="text"
+                        value={formik.values.username}
+                        ref={usernameRef}
+                        disabled={formik.isSubmitting}
+                        isInvalid={authFailed}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.username}
-                        disabled={formik.isSubmitting}
-                        placeholder="Ваш ник"
-                        ref={usernameRef}
                       />
                       <Form.Label htmlFor="username">Ваш ник</Form.Label>
                     </Form.Floating>
                     <Form.Floating className="mb-4">
                       <Form.Control
-                        isInvalid={authFailed}
                         id="password"
                         name="password"
                         autoComplete="password"
+                        placeholder="Ваш пароль"
                         type="password"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
                         value={formik.values.password}
                         disabled={formik.isSubmitting}
-                        placeholder="Ваш пароль"
+                        isInvalid={authFailed}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                       />
                       <Form.Label htmlFor="password">Пароль</Form.Label>
-                      <Form.Text className="invalid-feedback">
+                      <Form.Text className="invalid-tooltip">
                         Неверное имя пользователя или пароль
                       </Form.Text>
                     </Form.Floating>
                     <Button
-                      className="w-100 mb-3 btn"
-                      variant="outline-primary"
                       type="submit"
+                      variant="outline-primary"
+                      className="w-100 mb-3"
                       disabled={formik.isSubmitting}
                     >
                       Войти
@@ -122,7 +118,8 @@ const LoginPage = () => {
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта?</span>
+                <span>Нет аккаунта?</span>{" "}
+                <NavLink to="/singup">Регистрация</NavLink>
               </div>
             </Card.Footer>
           </Card>

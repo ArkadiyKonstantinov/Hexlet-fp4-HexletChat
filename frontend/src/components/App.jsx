@@ -10,6 +10,7 @@ import Header from "./Header.jsx";
 import Page404 from "./Page404.jsx";
 import MainPage from "./MainPage.jsx";
 import LoginPage from "./LoginPage.jsx";
+import SingUpPage from "./SingUpPage.jsx";
 import { ToastContainer } from "react-toastify";
 import useAuth from "../hooks/index.jsx";
 
@@ -39,6 +40,7 @@ const App = () => {
             }
           />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/singup" element={<SingUpPage />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
