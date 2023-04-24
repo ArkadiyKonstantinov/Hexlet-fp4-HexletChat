@@ -28,12 +28,12 @@ const LoginPage = () => {
   const usernameRef = useRef();
   const formik = useFormik({
     initialValues: {
-      username: "admin",
-      password: "admin",
+      username: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required(t('valid.required')),
-      password: Yup.string().required(t('valid.required')),
+      username: Yup.string().required(t("valid.required")),
+      password: Yup.string().required(t("valid.required")),
     }),
     onSubmit: async (values) => {
       setAuthFailed(false);
@@ -41,7 +41,9 @@ const LoginPage = () => {
         const { data } = await axios.post(routes.loginPath(), values);
         localStorage.setItem("userId", JSON.stringify(data));
         auth.logIn(data.username);
-        const { from } = location.state || { from: { pathname: "/" } };
+        const { from } = location.state || {
+          from: { pathname: routes.mainPage() },
+        };
         navigate(from);
       } catch (err) {
         formik.setSubmitting(false);
@@ -73,13 +75,13 @@ const LoginPage = () => {
                 </Col>
                 <Col className="col-12 col-md-6 mt-3 mt-mb-0">
                   <Form onSubmit={formik.handleSubmit}>
-                    <h1 className="text-center mb-4">{t('login.title')}</h1>
+                    <h1 className="text-center mb-4">{t("login.title")}</h1>
                     <Form.Floating className="mb-3">
                       <Form.Control
                         id="username"
                         name="username"
                         autoComplete="username"
-                        placeholder={t('login.usernameLabel')}
+                        placeholder={t("login.usernameLabel")}
                         type="text"
                         value={formik.values.username}
                         ref={usernameRef}
@@ -88,7 +90,9 @@ const LoginPage = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       />
-                      <Form.Label htmlFor="username">{t('login.usernameLabel')}</Form.Label>
+                      <Form.Label htmlFor="username">
+                        {t("login.usernameLabel")}
+                      </Form.Label>
                       <Form.Text className="invalid-tooltip">
                         {formik.errors.username}
                       </Form.Text>
@@ -98,7 +102,7 @@ const LoginPage = () => {
                         id="password"
                         name="password"
                         autoComplete="password"
-                        placeholder={t('login.passwordLabel')}
+                        placeholder={t("login.passwordLabel")}
                         type="password"
                         value={formik.values.password}
                         disabled={formik.isSubmitting}
@@ -106,9 +110,11 @@ const LoginPage = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       />
-                      <Form.Label htmlFor="password">{t('login.passwordLabel')}</Form.Label>
+                      <Form.Label htmlFor="password">
+                        {t("login.passwordLabel")}
+                      </Form.Label>
                       <Form.Text className="invalid-tooltip">
-                        {formik.errors.password || t('login.error')}
+                        {formik.errors.password || t("login.error")}
                       </Form.Text>
                     </Form.Floating>
                     <Button
@@ -117,7 +123,7 @@ const LoginPage = () => {
                       className="w-100 mb-3"
                       disabled={formik.isSubmitting}
                     >
-                     {t('login.button')} 
+                      {t("login.button")}
                     </Button>
                   </Form>
                 </Col>
@@ -125,8 +131,8 @@ const LoginPage = () => {
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{t('login.noAccount')}</span>{" "}
-                <NavLink to="/singup">{t('login.signUp')}</NavLink>
+                <span>{t("login.noAccount")}</span>{" "}
+                <NavLink to={routes.signUpPage()}>{t("login.signUp")}</NavLink>
               </div>
             </Card.Footer>
           </Card>

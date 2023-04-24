@@ -15,6 +15,7 @@ import singUp from "../assets/singup.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { routes } from "../routes";
 
 const SingUpPage = () => {
   const [singUpFailed, setSingUpFailed] = useState(false);
@@ -59,7 +60,7 @@ const SingUpPage = () => {
         });
         localStorage.setItem("userId", JSON.stringify(data));
         auth.logIn(username);
-        const { from } = location.state || { from: { pathname: "/" } };
+        const { from } = location.state || { from: { pathname: routes.mainPage() } };
         navigate(from);
       } catch (err) {
         formik.setSubmitting(false);

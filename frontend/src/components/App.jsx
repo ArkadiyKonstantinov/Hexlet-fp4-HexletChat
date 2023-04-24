@@ -13,6 +13,7 @@ import LoginPage from "./LoginPage.jsx";
 import SingUpPage from "./SingUpPage.jsx";
 import { ToastContainer } from "react-toastify";
 import useAuth from "../hooks/index.jsx";
+import { routes } from "../routes.js";
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
@@ -21,7 +22,7 @@ const PrivateRoute = ({ children }) => {
   return auth.loggedIn || auth.username !== null ? (
     children
   ) : (
-    <Navigate to="/login" state={{ from: location }} />
+    <Navigate to={routes.loginPage()} state={{ from: location }} />
   );
 };
 
@@ -32,15 +33,15 @@ const App = () => {
         <Header />
         <Routes>
           <Route
-            path="/"
+            path={routes.mainPage()}
             element={
               <PrivateRoute>
                 <MainPage />
               </PrivateRoute>
             }
           />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/singup" element={<SingUpPage />} />
+          <Route path={routes.loginPage()} element={<LoginPage />} />
+          <Route path={routes.signUpPage()} element={<SingUpPage />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
