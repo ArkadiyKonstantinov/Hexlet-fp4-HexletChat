@@ -27,10 +27,10 @@ const Init = () => {
     environment: "testenv",
   };
 
-  const TestError = () => {
-    const a = null;
-    return a.hello();
-  }
+  // const TestError = () => {
+  //   const a = null;
+  //   return a.hello();
+  // }
 
   return (
     <RollbarProvider config={rollbarConfig}>
