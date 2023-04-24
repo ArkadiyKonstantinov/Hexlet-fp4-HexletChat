@@ -41,7 +41,7 @@ const SingUpPage = () => {
         .min(3, t("valid.min"))
         .max(20, t("valid.max"))
         .trim()
-        .required(t("valid.requered")),
+        .required(t("valid.required")),
       password: Yup.string()
         .min(6, t("valid.minPass"))
         .required(t("valid.required")),
