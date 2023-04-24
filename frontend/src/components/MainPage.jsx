@@ -12,7 +12,6 @@ const MainPage = () => {
   const auth = useAuth();
   const { t } = useTranslation();
   const loadingStatus = useSelector((state) => state.channels.loadingStatus);
-  console.log(loadingStatus)
 
   useEffect(() => {
     const fetchData = async () => {

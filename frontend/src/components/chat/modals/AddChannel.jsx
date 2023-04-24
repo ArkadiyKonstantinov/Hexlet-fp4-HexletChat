@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { channelsSelectors } from "../../../slices/channelsSlice";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import * as filter from "leo-profanity";
 
 const AddChannel = ({ onHide }) => {
   const channels = useSelector(channelsSelectors.selectAll);
@@ -25,22 +26,23 @@ const AddChannel = ({ onHide }) => {
     onSubmit: (values) => {
       try {
         const { channelName } = values;
-        socket.emit("newChannel", { name: channelName });
+        const name = filter.clean(channelName);
+        socket.emit("newChannel", { name });
         formik.setSubmitting(false);
         onHide();
-        toast.success(t('toast.channelAdded'));
+        toast.success(t("toast.channelAdded"));
       } catch (err) {
-        toast.error(t('toast.channelAddError'));
+        toast.error(t("toast.channelAddError"));
         console.error(err);
       }
     },
     validationSchema: Yup.object({
       channelName: Yup.string()
         .trim()
-        .required(t('valid.required'))
-        .min(3, t('valid.min'))
-        .max(20, t('valid.max'))
-        .notOneOf(channelsNames, t('valid.mustBeUniq')),
+        .required(t("valid.required"))
+        .min(3, t("valid.min"))
+        .max(20, t("valid.max"))
+        .notOneOf(channelsNames, t("valid.mustBeUniq")),
     }),
     validateOnChange: false,
     validateOnBlur: false,
@@ -49,7 +51,7 @@ const AddChannel = ({ onHide }) => {
   return (
     <Modal show centered>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>{t('modal.addTitle')}</Modal.Title>
+        <Modal.Title>{t("modal.addTitle")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -67,17 +69,17 @@ const AddChannel = ({ onHide }) => {
                 formik.errors.channelName && formik.touched.channelName
               }
             />
-            <Form.Label>{t('modal.addLabel')}</Form.Label>
+            <Form.Label>{t("modal.addLabel")}</Form.Label>
             <Form.Text className="invalid-feedback">
               {formik.errors.channelName}
             </Form.Text>
           </Form.Floating>
           <Modal.Footer>
             <Button variant="secondary" type="button" onClick={onHide}>
-              {t('modal.cancelButton')}              
+              {t("modal.cancelButton")}
             </Button>
             <Button variant="primary" type="submit">
-             {t('modal.addButton')} 
+              {t("modal.addButton")}
             </Button>
           </Modal.Footer>
         </Form>

@@ -5,6 +5,7 @@ import useAuth from "../../../hooks/index.jsx";
 import { Form, Button } from "react-bootstrap";
 import { BsArrowRightSquare } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import * as filter from "leo-profanity";
 
 const MessageForm = ({ currentChannelId }) => {
   const auth = useAuth();
@@ -20,7 +21,7 @@ const MessageForm = ({ currentChannelId }) => {
     },
     onSubmit: (values) => {
       const message = {
-        text: values.body,
+        text: filter.clean(values.body),
         channelId: currentChannelId,
         username: auth.username,
       };
