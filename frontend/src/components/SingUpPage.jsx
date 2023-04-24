@@ -14,11 +14,13 @@ import * as Yup from "yup";
 import singUp from "../assets/singup.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const SingUpPage = () => {
   const [singUpFailed, setSingUpFailed] = useState(false);
 
   const auth = useAuth();
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -35,17 +37,17 @@ const SingUpPage = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .min(3, "От 3 до 20 символов")
-        .max(20, "От 3 до 20 символов")
+        .min(3, t("valid.min"))
+        .max(20, t("valid.max"))
         .trim()
-        .required("Обязательное поле"),
+        .required(t("valid.requered")),
       password: Yup.string()
-        .min(6, "Не менее 6 символов")
-        .required("Обязательное поле"),
+        .min(6, t("valid.minPass"))
+        .required(t("valid.required")),
       confirmPassword: Yup.string()
-        .min(6, "Не менее 6 символов")
-        .oneOf([Yup.ref("password"), null], "Пароли должны совпадать")
-        .required("Обязательное поле"),
+        .min(6, t("valid.minPass"))
+        .oneOf([Yup.ref("password"), null], t("valid.confirmPass"))
+        .required(t("valid.required")),
     }),
     onSubmit: async (values) => {
       setSingUpFailed(false);
@@ -80,13 +82,13 @@ const SingUpPage = () => {
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <Image src={singUp} roundedCircle="true" alt="Регистрация" />
               <Form onSubmit={formik.handleSubmit} className="w-50">
-                <h1 className="text-center mb-4">Регистрация</h1>
+                <h1 className="text-center mb-4">{t("signup.title")}</h1>
                 <Form.Floating className="mb-3">
                   <Form.Control
                     id="username"
                     name="username"
                     autoComplete="username"
-                    placeholder="Имя пользователя"
+                    placeholder={t("signup.usernameLabel")}
                     type="text"
                     value={formik.values.username}
                     ref={usernameRef}
@@ -95,7 +97,9 @@ const SingUpPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <Form.Label htmlFor="username">Имя пользователя</Form.Label>
+                  <Form.Label htmlFor="username">
+                    {t("signup.usernameLabel")}
+                  </Form.Label>
                   <Form.Text className="invalid-tooltip">
                     {formik.errors.username || null}
                   </Form.Text>
@@ -105,7 +109,7 @@ const SingUpPage = () => {
                     id="password"
                     name="password"
                     autoComplete="password"
-                    placeholder="Пароль"
+                    placeholder={t("signup.passLabel")}
                     type="password"
                     value={formik.values.password}
                     disabled={formik.isSubmitting}
@@ -113,7 +117,9 @@ const SingUpPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <Form.Label htmlFor="username">Пароль</Form.Label>
+                  <Form.Label htmlFor="username">
+                    {t("signup.passLabel")}
+                  </Form.Label>
                   <Form.Text className="invalid-tooltip">
                     {formik.errors.password || null}
                   </Form.Text>
@@ -123,7 +129,7 @@ const SingUpPage = () => {
                     id="confirmPassword"
                     name="confirmPassword"
                     autoComplete="confirmPassword"
-                    placeholder="Подвтвердите пароль"
+                    placeholder={t("signup.confirmPassLabel")}
                     type="password"
                     value={formik.values.confirmPassword}
                     disabled={formik.isSubmitting}
@@ -131,10 +137,11 @@ const SingUpPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <Form.Label htmlFor="username">Подтвердите пароль</Form.Label>
+                  <Form.Label htmlFor="username">
+                    {t("signup.confirmPassLabel")}
+                  </Form.Label>
                   <Form.Text className="invalid-tooltip">
-                    {formik.errors.confirmPassword ||
-                      "Такой пользователь уже существует"}
+                    {formik.errors.confirmPassword || t("signup.error")}
                   </Form.Text>
                 </Form.Floating>
                 <Button
@@ -143,7 +150,7 @@ const SingUpPage = () => {
                   className="w-100"
                   disabled={formik.isSubmitting}
                 >
-                  Зарегестрироваться
+                 {t('signup.button')} 
                 </Button>
               </Form>
             </Card.Body>

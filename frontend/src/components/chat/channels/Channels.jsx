@@ -5,8 +5,10 @@ import { BsPlusSquare } from "react-icons/bs";
 import { Col, Button, Nav } from "react-bootstrap";
 import Channel from "./Channel.jsx";
 import ChannelsModal from "../modals/ChannelsModal.jsx";
+import { useTranslation } from "react-i18next";
 
 const Channels = () => {
+  const { t } = useTranslation();
   const channels = useSelector(channelsSelectors.selectAll);
   const [modal, setModal] = useState({
     type: null,
@@ -21,7 +23,7 @@ const Channels = () => {
     <>
       <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
         <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-          <b>Каналы</b>
+          <b>{t('chat.title')}</b>
           <Button
             variant="qroup-vertical"
             className="p-0 text-primary"

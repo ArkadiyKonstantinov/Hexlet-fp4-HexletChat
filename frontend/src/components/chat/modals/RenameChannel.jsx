@@ -6,9 +6,12 @@ import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import { channelsSelectors } from "../../../slices/channelsSlice";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const RenameChannel = ({ modal, onHide }) => {
   const { channelName, id } = modal;
+  const { t } = useTranslation();
+
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsNames = channels
     .map((channel) => channel.name)
@@ -29,19 +32,19 @@ const RenameChannel = ({ modal, onHide }) => {
         socket.emit("renameChannel", { name: channelName, id });
         formik.setSubmitting(false);
         onHide();
-        toast.success("Канал переименован");
+        toast.success(t('toast.channelRenamed'));
       } catch (err) {
-        toast.error("Не удалось переименовать");
+        toast.error(t('toast.channelRenameError'));
         console.error(err);
       }
     },
     validationSchema: Yup.object({
       channelName: Yup.string()
         .trim()
-        .required("Обязательное поле")
-        .min(3, "От 3 до 20 символов")
-        .max(20, "От 3 до 20 символов")
-        .notOneOf(channelsNames, "Должно быть уникальным"),
+        .required(t('valid.required'))
+        .min(3, t('valid.min'))
+        .max(20, t('valid.max'))
+        .notOneOf(channelsNames, t('valid.mustBeUniq')),
     }),
     validateOnChange: false,
     validateOnBlur: false,
@@ -50,7 +53,7 @@ const RenameChannel = ({ modal, onHide }) => {
   return (
     <Modal show centered>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modal.renameTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -66,17 +69,17 @@ const RenameChannel = ({ modal, onHide }) => {
               value={formik.values.channelName}
               isInvalid={formik.errors.channelName}
             />
-            <Form.Label>Имя канала</Form.Label>
+            <Form.Label>{t('modal.renameLabel')}</Form.Label>
             <Form.Text className="invalid-feedback">
               {formik.errors.channelName}
             </Form.Text>
           </Form.Floating>
           <Modal.Footer>
             <Button variant="secondary" type="button" onClick={onHide}>
-              Отменить
+             {t('modal.cancelButton')} 
             </Button>
             <Button variant="primary" type="submit">
-              Переименовать
+             {t('modal.renameButton')} 
             </Button>
           </Modal.Footer>
         </Form>

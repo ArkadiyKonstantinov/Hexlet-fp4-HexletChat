@@ -5,10 +5,12 @@ import useAuth from "../hooks/index.jsx";
 import { fetchInitialData } from "../slices/channelsSlice.js";
 import Channels from "./chat/channels/Channels.jsx";
 import Messages from "./chat/messages/Messages.jsx";
+import { useTranslation } from "react-i18next";
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
+  const { t } = useTranslation();
   const loadingStatus = useSelector((state) => state.channels.loadingStatus);
   console.log(loadingStatus)
 
@@ -21,7 +23,7 @@ const MainPage = () => {
   }, [dispatch, auth]);
 
   if (loadingStatus === "loading") {
-    return <div className="text-center alight-middle display-1 h-100">Loading...</div>;
+    return <div className="text-center alight-middle display-1 h-100">{t('chat.loading')}</div>;
   }
 
   return (

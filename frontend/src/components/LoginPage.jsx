@@ -32,8 +32,8 @@ const LoginPage = () => {
       password: "admin",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Обязательное поле"),
-      password: Yup.string().required("Обязательное поле"),
+      username: Yup.string().required(t('valid.required')),
+      password: Yup.string().required(t('valid.required')),
     }),
     onSubmit: async (values) => {
       setAuthFailed(false);
@@ -57,6 +57,8 @@ const LoginPage = () => {
         throw err;
       }
     },
+    validateOnChange: false,
+    validateOnBlur: false,
   });
 
   return (
@@ -71,39 +73,42 @@ const LoginPage = () => {
                 </Col>
                 <Col className="col-12 col-md-6 mt-3 mt-mb-0">
                   <Form onSubmit={formik.handleSubmit}>
-                    <h1 className="text-center mb-4">{t('test')}Войти</h1>
+                    <h1 className="text-center mb-4">{t('login.title')}</h1>
                     <Form.Floating className="mb-3">
                       <Form.Control
                         id="username"
                         name="username"
                         autoComplete="username"
-                        placeholder="Ваш ник"
+                        placeholder={t('login.usernameLabel')}
                         type="text"
                         value={formik.values.username}
                         ref={usernameRef}
                         disabled={formik.isSubmitting}
-                        isInvalid={authFailed}
+                        isInvalid={formik.errors.username || authFailed}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       />
-                      <Form.Label htmlFor="username">Ваш ник</Form.Label>
+                      <Form.Label htmlFor="username">{t('login.usernameLabel')}</Form.Label>
+                      <Form.Text className="invalid-tooltip">
+                        {formik.errors.username}
+                      </Form.Text>
                     </Form.Floating>
                     <Form.Floating className="mb-4">
                       <Form.Control
                         id="password"
                         name="password"
                         autoComplete="password"
-                        placeholder="Ваш пароль"
+                        placeholder={t('login.passwordLabel')}
                         type="password"
                         value={formik.values.password}
                         disabled={formik.isSubmitting}
-                        isInvalid={authFailed}
+                        isInvalid={formik.errors.password || authFailed}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       />
-                      <Form.Label htmlFor="password">Пароль</Form.Label>
+                      <Form.Label htmlFor="password">{t('login.passwordLabel')}</Form.Label>
                       <Form.Text className="invalid-tooltip">
-                        Неверное имя пользователя или пароль
+                        {formik.errors.password || t('login.error')}
                       </Form.Text>
                     </Form.Floating>
                     <Button
@@ -112,7 +117,7 @@ const LoginPage = () => {
                       className="w-100 mb-3"
                       disabled={formik.isSubmitting}
                     >
-                      Войти
+                     {t('login.button')} 
                     </Button>
                   </Form>
                 </Col>
@@ -120,8 +125,8 @@ const LoginPage = () => {
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта?</span>{" "}
-                <NavLink to="/singup">Регистрация</NavLink>
+                <span>{t('login.noAccount')}</span>{" "}
+                <NavLink to="/singup">{t('login.signUp')}</NavLink>
               </div>
             </Card.Footer>
           </Card>

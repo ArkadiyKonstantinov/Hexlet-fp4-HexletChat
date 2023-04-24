@@ -6,10 +6,12 @@ import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import { channelsSelectors } from "../../../slices/channelsSlice";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const AddChannel = ({ onHide }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsNames = channels.map((channel) => channel.name);
+  const { t } = useTranslation();
   const inputRef = useRef();
 
   useEffect(() => {
@@ -26,19 +28,19 @@ const AddChannel = ({ onHide }) => {
         socket.emit("newChannel", { name: channelName });
         formik.setSubmitting(false);
         onHide();
-        toast.success("Канал создан");
+        toast.success(t('toast.channelAdded'));
       } catch (err) {
-        toast.error("Не удалось добавить");
+        toast.error(t('toast.channelAddError'));
         console.error(err);
       }
     },
     validationSchema: Yup.object({
       channelName: Yup.string()
         .trim()
-        .required("Обязательное поле")
-        .min(3, "От 3 до 20 символов")
-        .max(20, "От 3 до 20 символов")
-        .notOneOf(channelsNames, "Должно быть уникальным"),
+        .required(t('valid.required'))
+        .min(3, t('valid.min'))
+        .max(20, t('valid.max'))
+        .notOneOf(channelsNames, t('valid.mustBeUniq')),
     }),
     validateOnChange: false,
     validateOnBlur: false,
@@ -47,7 +49,7 @@ const AddChannel = ({ onHide }) => {
   return (
     <Modal show centered>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modal.addTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -65,17 +67,17 @@ const AddChannel = ({ onHide }) => {
                 formik.errors.channelName && formik.touched.channelName
               }
             />
-            <Form.Label>Имя канала</Form.Label>
+            <Form.Label>{t('modal.addLabel')}</Form.Label>
             <Form.Text className="invalid-feedback">
               {formik.errors.channelName}
             </Form.Text>
           </Form.Floating>
           <Modal.Footer>
             <Button variant="secondary" type="button" onClick={onHide}>
-              Отменить
+              {t('modal.cancelButton')}              
             </Button>
             <Button variant="primary" type="submit">
-              Добавить
+             {t('modal.addButton')} 
             </Button>
           </Modal.Footer>
         </Form>

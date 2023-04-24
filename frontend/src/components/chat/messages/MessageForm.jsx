@@ -4,9 +4,11 @@ import { socket } from "../../../socket.js";
 import useAuth from "../../../hooks/index.jsx";
 import { Form, Button } from "react-bootstrap";
 import { BsArrowRightSquare } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 const MessageForm = ({ currentChannelId }) => {
   const auth = useAuth();
+  const { t } = useTranslation();
   const messageRef = useRef();
   useEffect(() => {
     messageRef.current.focus();
@@ -39,8 +41,8 @@ const MessageForm = ({ currentChannelId }) => {
           <Form.Control
             id="body"
             name="body"
-            aria-label="Новое сообщение"
-            placeholder="Введите сообщение..."
+            aria-label={t('chat.messageLabel')}
+            placeholder={t('chat.messagePlaceholder')}
             className="border-0 p-0 ps-2"
             ref={messageRef}
             value={formik.values.body}
@@ -53,7 +55,7 @@ const MessageForm = ({ currentChannelId }) => {
             variant="group-vertical"
           >
             <BsArrowRightSquare />
-            <span className="visually-hidden">Отправить</span>
+            <span className="visually-hidden">{t('chat.sendButton')}</span>
           </Button>
         </Form.Group>
       </Form>

@@ -4,8 +4,10 @@ import { channelsSelectors } from "../../../slices/channelsSlice.js";
 import { messagesSelectors } from "../../../slices/messagesSlice.js";
 import { Col } from "react-bootstrap";
 import MessageForm from "./MessageForm.jsx";
+import { useTranslation } from "react-i18next";
 
 const Messages = () => {
+  const { t } = useTranslation();
   const currentChannelId = useSelector(
     (state) => state.channels.currentChannelId
   );
@@ -13,11 +15,10 @@ const Messages = () => {
     channelsSelectors.selectById(state, currentChannelId)
   );
   const messages = useSelector(messagesSelectors.selectAll);
-  console.log("All messages");
-  console.log(messages);
   const currentChannelMessages = messages.filter(
     ({ channelId }) => channelId === currentChannelId
   );
+  const count = currentChannelMessages.length;
 
   return (
     <Col className="p-0 h-100">
@@ -27,7 +28,7 @@ const Messages = () => {
             <b># {currentChannel ? currentChannel.name : null}</b>
           </p>
           <span className="text-muted">
-            {currentChannelMessages.length} сообщений
+            {t('chat.messages', { count })}
           </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">

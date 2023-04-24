@@ -2,10 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Dropdown, Nav } from "react-bootstrap";
 import { channelsActions } from "../../../slices/channelsSlice";
+import { useTranslation } from "react-i18next";
 
 const Channel = ({ channel, showModal }) => {
-  const { id, name, removable } = channel;
+  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { id, name, removable } = channel;
 
   const setCurrent = (id) => {
     dispatch(channelsActions.setCurrentChannel(id));
@@ -29,14 +31,14 @@ const Channel = ({ channel, showModal }) => {
             variant={id === currentChannelId ? "secondary" : "light"}
             className="flex-grow-0 dropown-toggle-split"
           >
-            <span className="visually-hidden">Управление каналом</span>
+            <span className="visually-hidden">{t('chat.dropdownTitle')}</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => showModal("removeChannel", name, id)}>
-              Удалить
+             {t('chat.dropdownRemove')} 
             </Dropdown.Item>
             <Dropdown.Item onClick={() => showModal("renameChannel", name, id)}>
-              Переименовать
+             {t('chat.dropdownRename')} 
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
