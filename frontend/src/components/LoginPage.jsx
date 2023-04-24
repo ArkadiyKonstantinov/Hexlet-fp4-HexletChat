@@ -71,7 +71,7 @@ const LoginPage = () => {
                 </Col>
                 <Col className="col-12 col-md-6 mt-3 mt-mb-0">
                   <Form onSubmit={formik.handleSubmit}>
-                    <h1 className="text-center mb-4">Войти</h1>
+                    <h1 className="text-center mb-4">{t('test')}Войти</h1>
                     <Form.Floating className="mb-3">
                       <Form.Control
                         id="username"

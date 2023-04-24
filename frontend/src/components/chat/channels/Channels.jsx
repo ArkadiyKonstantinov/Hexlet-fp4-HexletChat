@@ -1,23 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  channelsSelectors,
-  channelsActions,
-} from "../../../slices/channelsSlice.js";
+import { channelsSelectors } from "../../../slices/channelsSlice.js";
 import { BsPlusSquare } from "react-icons/bs";
 import { Col, Button, Nav } from "react-bootstrap";
 import Channel from "./Channel.jsx";
 import ChannelsModal from "../modals/ChannelsModal.jsx";
 
 const Channels = () => {
-  const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId
-  );
   const channels = useSelector(channelsSelectors.selectAll);
-  const currntChannelName = channels.find(
-    ({ id }) => id === currentChannelId
-  )?.name;
-
   const [modal, setModal] = useState({
     type: null,
     channelName: null,

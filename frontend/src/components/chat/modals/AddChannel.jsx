@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { socket } from "../../../socket";
 import { useFormik } from "formik";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import { channelsSelectors } from "../../../slices/channelsSlice";
 import { toast } from "react-toastify";
