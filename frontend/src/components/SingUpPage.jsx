@@ -46,7 +46,6 @@ const SingUpPage = () => {
         .min(6, t("valid.minPass"))
         .required(t("valid.required")),
       confirmPassword: Yup.string()
-        .min(6, t("valid.minPass"))
         .oneOf([Yup.ref("password"), null], t("valid.confirmPass"))
         .required(t("valid.required")),
     }),
@@ -60,7 +59,9 @@ const SingUpPage = () => {
         });
         localStorage.setItem("userId", JSON.stringify(data));
         auth.logIn(username);
-        const { from } = location.state || { from: { pathname: routes.mainPage() } };
+        const { from } = location.state || {
+          from: { pathname: routes.mainPage() },
+        };
         navigate(from);
       } catch (err) {
         formik.setSubmitting(false);
@@ -101,7 +102,7 @@ const SingUpPage = () => {
                   <Form.Label htmlFor="username">
                     {t("signup.usernameLabel")}
                   </Form.Label>
-                  <Form.Text className="invalid-tooltip">
+                  <Form.Text className="invalid-feedback">
                     {formik.errors.username || null}
                   </Form.Text>
                 </Form.Floating>
@@ -121,7 +122,7 @@ const SingUpPage = () => {
                   <Form.Label htmlFor="username">
                     {t("signup.passLabel")}
                   </Form.Label>
-                  <Form.Text className="invalid-tooltip">
+                  <Form.Text className="invalid-feedback">
                     {formik.errors.password || null}
                   </Form.Text>
                 </Form.Floating>
@@ -141,7 +142,7 @@ const SingUpPage = () => {
                   <Form.Label htmlFor="username">
                     {t("signup.confirmPassLabel")}
                   </Form.Label>
-                  <Form.Text className="invalid-tooltip">
+                  <Form.Text className="invalid-feedback">
                     {formik.errors.confirmPassword || t("signup.error")}
                   </Form.Text>
                 </Form.Floating>
@@ -151,7 +152,7 @@ const SingUpPage = () => {
                   className="w-100"
                   disabled={formik.isSubmitting}
                 >
-                 {t('signup.button')} 
+                  {t("signup.button")}
                 </Button>
               </Form>
             </Card.Body>
