@@ -24,7 +24,7 @@ const Init = () => {
   leoProfanity.loadDictionary("ru");
 
   const rollbarConfig = {
-    accessToken: "3f791afd456543599cac59744f899917",
+    accessToken: process.env.ROLLBAR_TOKEN,
     environment: "testenv",
   };
 
