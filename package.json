@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/ArkadiyKonstantinov/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/ArkadiyKonstantinov/frontend-project-12/actions)",
+  "description": "Hexlet Chat is an analogue of Slack chat (very simplified version)",
   "main": "src/index.jsx",
   "scripts": {
     "build": "npm run build --prefix frontend",
