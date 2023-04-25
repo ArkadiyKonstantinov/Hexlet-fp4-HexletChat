@@ -53,7 +53,7 @@ const LoginPage = () => {
           return;
         }
         if (err.isAxiosError && err.code === "ERR_NETWORK") {
-          toast.error("Ошибка сети");
+          toast.error(t('toast.netError'));
           return;
         }
         throw err;

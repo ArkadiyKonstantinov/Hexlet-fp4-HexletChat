@@ -56,6 +56,7 @@ const ru = {
       mustBeUniq: "Должно быть уникальным",
     },
     toast: {
+      netError: "Ошибка сети",
       channelAdded: "Канал создан",
       channelAddError: "Не удалось добавить канал",
       channelRemoved: "Канал удалён",
