@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { useFormik } from "formik";
-import { socket } from "../../../socket.js";
-import useAuth from "../../../hooks/index.jsx";
+import { useSocket } from "../../../hooks/index.jsx";
+import { useAuth } from "../../../hooks/index.jsx";
 import { Form, Button } from "react-bootstrap";
 import { BsArrowRightSquare } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,7 @@ import * as filter from "leo-profanity";
 
 const MessageForm = ({ currentChannelId }) => {
   const auth = useAuth();
+  const { socket } = useSocket();
   const { t } = useTranslation();
   const messageRef = useRef();
   useEffect(() => {

@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Container, Row } from "react-bootstrap";
-import useAuth from "../hooks/index.jsx";
-import { fetchInitialData } from "../slices/channelsSlice.js";
+import { useSelector, useDispatch } from "react-redux";
+import { useAuth } from "../hooks/index.jsx";
 import Channels from "./chat/channels/Channels.jsx";
 import Messages from "./chat/messages/Messages.jsx";
+import { fetchInitialData } from "../slices/channelsSlice.js";
 import { useTranslation } from "react-i18next";
 
 const MainPage = () => {
-  const dispatch = useDispatch();
   const auth = useAuth();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const loadingStatus = useSelector((state) => state.channels.loadingStatus);
 
   useEffect(() => {

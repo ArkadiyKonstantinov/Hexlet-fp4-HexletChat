@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import useAuth from "../hooks";
-import { useFormik } from "formik";
 import {
   Container,
   Row,
@@ -10,12 +8,14 @@ import {
   Form,
   Button,
 } from "react-bootstrap";
-import * as Yup from "yup";
-import singUp from "../assets/singup.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as Yup from "yup";
+import singUp from "../assets/singup.jpg";
+import { useFormik } from "formik";
+import { useAuth } from "../hooks/index.jsx";
+import { routes } from "../routes.js";
 import { useTranslation } from "react-i18next";
-import { routes } from "../routes";
 
 const SingUpPage = () => {
   const [singUpFailed, setSingUpFailed] = useState(false);

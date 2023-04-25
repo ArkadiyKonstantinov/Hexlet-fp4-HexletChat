@@ -12,7 +12,7 @@ import MainPage from "./MainPage.jsx";
 import LoginPage from "./LoginPage.jsx";
 import SingUpPage from "./SingUpPage.jsx";
 import { ToastContainer } from "react-toastify";
-import useAuth from "../hooks/index.jsx";
+import { useAuth } from "../hooks/index.jsx";
 import { routes } from "../routes.js";
 
 const PrivateRoute = ({ children }) => {

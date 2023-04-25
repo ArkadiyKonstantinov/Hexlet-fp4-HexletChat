@@ -1,10 +1,11 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { socket } from "../../../socket.js";
+import { useSocket } from "../../../hooks/index.jsx";
 import { useTranslation } from "react-i18next";
 
 const RemoveChannel = ({ modal, onHide }) => {
+  const { socket } = useSocket();
   const { id } = modal;
   const { t } = useTranslation();
 

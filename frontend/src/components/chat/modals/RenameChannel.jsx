@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { socket } from "../../../socket";
+import { useSocket } from "../../../hooks/index.jsx";
 import { useFormik } from "formik";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import * as filter from "leo-profanity";
 
 const RenameChannel = ({ modal, onHide }) => {
+  const { socket } = useSocket();
   const { channelName, id } = modal;
   const { t } = useTranslation();
 
