@@ -23,7 +23,9 @@ const Init = () => {
   };
   i18n.use(initReactI18next).init(options);
 
-  leoProfanity.loadDictionary("ru");
+  leoProfanity.loadDictionary();
+  const ruDictionary = leoProfanity.getDictionary('ru');
+  leoProfanity.add(ruDictionary);
 
   const rollbarConfig = {
     accessToken: process.env.ROLLBAR_TOKEN,
