@@ -29,7 +29,8 @@ const channelsSlice = createSlice({
     addChannel: channelsAdapter.addOne,
     renameChannel: (state, { payload }) => {
       const { id , name } = payload;
-      channelsAdapter.updateOne(state, { id, changes: name });
+      // channelsAdapter.updateOne(state, { id, changes: name });
+      state.entities[id].name = name;
     },
     removeChannel: (state, { payload }) => {
       console.dir(payload)
