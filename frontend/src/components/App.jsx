@@ -27,33 +27,33 @@ const PrivateRoute = ({ children }) => {
 };
 
 const App = () => (
-    <div className="d-flex flex-column h-100">
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route
-            path={routes.mainPage()}
-            element={(
-              <PrivateRoute>
-                <MainPage />
-              </PrivateRoute>
-              )}
-          />
-          <Route path={routes.loginPage()} element={<LoginPage />} />
-          <Route path={routes.signUpPage()} element={<SingUpPage />} />
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </BrowserRouter>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
-        theme="light"
-      />
-    </div>
-  );
+  <div className="d-flex flex-column h-100">
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route
+          path={routes.mainPage()}
+          element={
+            <PrivateRoute>
+              <MainPage />
+            </PrivateRoute>
+          }
+        />
+        <Route path={routes.loginPage()} element={<LoginPage />} />
+        <Route path={routes.signUpPage()} element={<SingUpPage />} />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </BrowserRouter>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      pauseOnHover
+      theme="light"
+    />
+  </div>
+);
 
 export default App;

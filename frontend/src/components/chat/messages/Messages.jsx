@@ -27,8 +27,7 @@ const Messages = () => {
           <p className="m-0">
             <b>
               #
-              {currentChannel ? currentChannel.name
-              :
+              {currentChannel ? currentChannel.name :
               null}
             </b>
           </p>
@@ -39,7 +38,8 @@ const Messages = () => {
             const { text, id, username } = message;
             return (
               <div key={id} className="text-break mb-2">
-                <b>{username}</b>:
+                <b>{username}</b>
+                :
                 {text}
               </div>
             );
