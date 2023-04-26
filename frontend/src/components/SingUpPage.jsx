@@ -119,7 +119,7 @@ const SingUpPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <Form.Label htmlFor="username">
+                  <Form.Label htmlFor="password">
                     {t("signup.passLabel")}
                   </Form.Label>
                   <Form.Text className="invalid-feedback">
@@ -139,7 +139,7 @@ const SingUpPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <Form.Label htmlFor="username">
+                  <Form.Label htmlFor="confirmPassword">
                     {t("signup.confirmPassLabel")}
                   </Form.Label>
                   <Form.Text className="invalid-feedback">
