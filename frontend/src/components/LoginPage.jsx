@@ -89,13 +89,11 @@ const LoginPage = () => {
                         isInvalid={formik.errors.username || authFailed}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        required
                       />
                       <Form.Label htmlFor="username">
                         {t("login.usernameLabel")}
                       </Form.Label>
-                      <Form.Text className="invalid-tooltip">
-                        {formik.errors.username}
-                      </Form.Text>
                     </Form.Floating>
                     <Form.Floating className="mb-4">
                       <Form.Control
@@ -109,12 +107,13 @@ const LoginPage = () => {
                         isInvalid={formik.errors.password || authFailed}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        required
                       />
                       <Form.Label htmlFor="password">
                         {t("login.passwordLabel")}
                       </Form.Label>
                       <Form.Text className="invalid-tooltip">
-                        {formik.errors.password || t("login.error")}
+                        {t("login.error")}
                       </Form.Text>
                     </Form.Floating>
                     <Button
