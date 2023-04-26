@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 import {
   BrowserRouter,
   Routes,
   Route,
   useLocation,
   Navigate,
-} from "react-router-dom";
-import Header from "./Header.jsx";
-import Page404 from "./Page404.jsx";
-import MainPage from "./MainPage.jsx";
-import LoginPage from "./LoginPage.jsx";
-import SingUpPage from "./SingUpPage.jsx";
-import { ToastContainer } from "react-toastify";
-import { useAuth } from "../hooks/index.jsx";
-import { routes } from "../routes.js";
+} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import Header from './Header.jsx';
+import Page404 from './Page404.jsx';
+import MainPage from './MainPage.jsx';
+import LoginPage from './LoginPage.jsx';
+import SingUpPage from './SingUpPage.jsx';
+import { useAuth } from '../hooks/index.jsx';
+import { routes } from '../routes.js';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
@@ -34,10 +34,11 @@ const App = () => {
         <Routes>
           <Route
             path={routes.mainPage()}
-            element={
+            element={(
               <PrivateRoute>
                 <MainPage />
               </PrivateRoute>
+              )
             }
           />
           <Route path={routes.loginPage()} element={<LoginPage />} />
@@ -50,8 +51,8 @@ const App = () => {
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
-        closeOnClick={true}
-        pauseOnHover={true}
+        closeOnClick
+        pauseOnHover
         theme="light"
       />
     </div>

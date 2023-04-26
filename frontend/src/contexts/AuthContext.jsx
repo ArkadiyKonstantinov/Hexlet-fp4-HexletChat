@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { AuthContext } from '../contexts/index.jsx';
+import { AuthContext } from './index.jsx';
 
 const AuthProvider = ({ children }) => {
   const currentUsername = JSON.parse(localStorage.getItem('userId'))?.username;
   const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState(
-    currentUsername ? currentUsername : null
-  );
+  const [username, setUsername] = useState(currentUsername);
 
-  const logIn = (username) => {
+  const logIn = (currentUsername) => {
     setLoggedIn(true);
-    setUsername(username);
+    setUsername(currentUsername);
   };
   const logOut = () => {
     localStorage.removeItem('userId');

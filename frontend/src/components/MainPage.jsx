@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { Container, Row } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { useAuth } from "../hooks/index.jsx";
-import Channels from "./chat/channels/Channels.jsx";
-import Messages from "./chat/messages/Messages.jsx";
-import { fetchInitialData } from "../slices/channelsSlice.js";
-import { useTranslation } from "react-i18next";
+import React, { useEffect } from 'react';
+import { Container, Row } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../hooks/index.jsx';
+import Channels from './chat/channels/Channels.jsx';
+import Messages from './chat/messages/Messages.jsx';
+import { fetchInitialData } from '../slices/channelsSlice.js';
 
 const MainPage = () => {
   const auth = useAuth();
@@ -21,8 +21,12 @@ const MainPage = () => {
     fetchData();
   }, [dispatch, auth]);
 
-  if (loadingStatus === "loading") {
-    return <div className="text-center alight-middle display-1 h-100">{t('chat.loading')}</div>;
+  if (loadingStatus === 'loading') {
+    return (
+      <div className="text-center alight-middle display-1 h-100">
+        {t('chat.loading')}
+      </div>
+    );
   }
 
   return (

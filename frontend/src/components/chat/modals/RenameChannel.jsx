@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import { useSocket } from "../../../hooks/index.jsx";
-import { useFormik } from "formik";
-import { Button, Form, Modal } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import * as Yup from "yup";
-import { channelsSelectors } from "../../../slices/channelsSlice";
-import { toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
-import * as filter from "leo-profanity";
+import React, { useEffect, useRef } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import * as filter from 'leo-profanity';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import { channelsSelectors } from '../../../slices/channelsSlice';
+import { useSocket } from '../../../hooks/index.jsx';
 
 const RenameChannel = ({ modal, onHide }) => {
   const { socket } = useSocket();
@@ -32,22 +32,22 @@ const RenameChannel = ({ modal, onHide }) => {
       try {
         const { channelName } = values;
         const name = filter.clean(channelName);
-        socket.emit("renameChannel", { name, id });
+        socket.emit('renameChannel', { name, id });
         formik.setSubmitting(false);
         onHide();
-        toast.success(t("toast.channelRenamed"));
+        toast.success(t('toast.channelRenamed'));
       } catch (err) {
-        toast.error(t("toast.channelRenameError"));
+        toast.error(t('toast.channelRenameError'));
         console.error(err);
       }
     },
     validationSchema: Yup.object({
       channelName: Yup.string()
         .trim()
-        .required(t("valid.required"))
-        .min(3, t("valid.min"))
-        .max(20, t("valid.max"))
-        .notOneOf(channelsNames, t("valid.mustBeUniq")),
+        .required(t('valid.required'))
+        .min(3, t('valid.min'))
+        .max(20, t('valid.max'))
+        .notOneOf(channelsNames, t('valid.mustBeUniq')),
     }),
     validateOnChange: false,
     validateOnBlur: false,
@@ -56,7 +56,7 @@ const RenameChannel = ({ modal, onHide }) => {
   return (
     <Modal show centered>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>{t("modal.renameTitle")}</Modal.Title>
+        <Modal.Title>{t('modal.renameTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -66,23 +66,25 @@ const RenameChannel = ({ modal, onHide }) => {
               id="channelName"
               name="channelName"
               ref={inputRef}
-              required={true}
+              required
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.channelName}
               isInvalid={formik.errors.channelName}
             />
-            <Form.Label htmlFor="channelName">{t("modal.renameLabel")}</Form.Label>
+            <Form.Label htmlFor="channelName">
+              {t('modal.renameLabel')}
+            </Form.Label>
             <Form.Text className="invalid-feedback">
               {formik.errors.channelName}
             </Form.Text>
           </Form.Floating>
           <Modal.Footer>
             <Button variant="secondary" type="button" onClick={onHide}>
-              {t("modal.cancelButton")}
+              {t('modal.cancelButton')}
             </Button>
             <Button variant="primary" type="submit">
-              {t("modal.renameButton")}
+              {t('modal.renameButton')}
             </Button>
           </Modal.Footer>
         </Form>

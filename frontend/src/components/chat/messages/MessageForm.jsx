@@ -1,11 +1,10 @@
-import React, { useRef, useEffect } from "react";
-import { useFormik } from "formik";
-import { useSocket } from "../../../hooks/index.jsx";
-import { useAuth } from "../../../hooks/index.jsx";
-import { Form, Button } from "react-bootstrap";
-import { BsArrowRightSquare } from "react-icons/bs";
-import { useTranslation } from "react-i18next";
-import * as filter from "leo-profanity";
+import React, { useRef, useEffect } from 'react';
+import { useFormik } from 'formik';
+import { Form, Button } from 'react-bootstrap';
+import { BsArrowRightSquare } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
+import * as filter from 'leo-profanity';
+import { useAuth, useSocket } from '../../../hooks/index.jsx';
 
 const MessageForm = ({ currentChannelId }) => {
   const auth = useAuth();
@@ -18,7 +17,7 @@ const MessageForm = ({ currentChannelId }) => {
 
   const formik = useFormik({
     initialValues: {
-      body: "",
+      body: '',
     },
     onSubmit: (values) => {
       const message = {
@@ -26,9 +25,9 @@ const MessageForm = ({ currentChannelId }) => {
         channelId: currentChannelId,
         username: auth.username,
       };
-      socket.emit("newMessage", message);
+      socket.emit('newMessage', message);
       formik.setSubmitting(false);
-      formik.values.body = "";
+      formik.values.body = '';
     },
   });
 

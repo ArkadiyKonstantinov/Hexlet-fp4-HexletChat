@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { channelsSelectors } from "../../../slices/channelsSlice.js";
-import { BsPlusSquare } from "react-icons/bs";
-import { Col, Button, Nav } from "react-bootstrap";
-import Channel from "./Channel.jsx";
-import ChannelsModal from "../modals/ChannelsModal.jsx";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { BsPlusSquare } from 'react-icons/bs';
+import { Col, Button, Nav } from 'react-bootstrap';
+import Channel from './Channel.jsx';
+import ChannelsModal from '../modals/ChannelsModal.jsx';
+import { channelsSelectors } from '../../../slices/channelsSlice.js';
 
 const Channels = () => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const Channels = () => {
           <Button
             variant="group-vertical"
             className="p-0 text-primary"
-            onClick={() => showModal("addChannel")}
+            onClick={() => showModal('addChannel')}
           >
             <BsPlusSquare />
             <span className="visually-hidden">+</span>

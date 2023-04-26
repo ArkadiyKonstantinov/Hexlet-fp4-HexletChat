@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Container,
   Row,
@@ -7,15 +7,15 @@ import {
   Image,
   Form,
   Button,
-} from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
-import * as Yup from "yup";
-import singUp from "../assets/singup.jpg";
-import { useFormik } from "formik";
-import { useAuth } from "../hooks/index.jsx";
-import { routes } from "../routes.js";
-import { useTranslation } from "react-i18next";
+} from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
+import singUp from '../assets/singup.jpg';
+import { useAuth } from '../hooks/index.jsx';
+import { routes } from '../routes.js';
 
 const SingUpPage = () => {
   const [singUpFailed, setSingUpFailed] = useState(false);
@@ -32,32 +32,32 @@ const SingUpPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
-      confirmPassword: "",
+      username: '',
+      password: '',
+      confirmPassword: '',
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .min(3, t("valid.min"))
-        .max(20, t("valid.max"))
+        .min(3, t('valid.min'))
+        .max(20, t('valid.max'))
         .trim()
-        .required(t("valid.required")),
+        .required(t('valid.required')),
       password: Yup.string()
-        .min(6, t("valid.minPass"))
-        .required(t("valid.required")),
+        .min(6, t('valid.minPass'))
+        .required(t('valid.required')),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], t("valid.confirmPass"))
-        .required(t("valid.required")),
+        .oneOf([Yup.ref('password'), null], t('valid.confirmPass'))
+        .required(t('valid.required')),
     }),
     onSubmit: async (values) => {
       setSingUpFailed(false);
       try {
         const { username, password } = values;
-        const { data } = await axios.post("/api/v1/signup", {
+        const { data } = await axios.post('/api/v1/signup', {
           username,
           password,
         });
-        localStorage.setItem("userId", JSON.stringify(data));
+        localStorage.setItem('userId', JSON.stringify(data));
         auth.logIn(username);
         const { from } = location.state || {
           from: { pathname: routes.mainPage() },
@@ -84,13 +84,13 @@ const SingUpPage = () => {
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <Image src={singUp} roundedCircle="true" alt="Регистрация" />
               <Form onSubmit={formik.handleSubmit} className="w-50">
-                <h1 className="text-center mb-4">{t("signup.title")}</h1>
+                <h1 className="text-center mb-4">{t('signup.title')}</h1>
                 <Form.Floating className="mb-3">
                   <Form.Control
                     id="username"
                     name="username"
                     autoComplete="username"
-                    placeholder={t("signup.usernameLabel")}
+                    placeholder={t('signup.usernameLabel')}
                     type="text"
                     value={formik.values.username}
                     ref={usernameRef}
@@ -100,7 +100,7 @@ const SingUpPage = () => {
                     onBlur={formik.handleBlur}
                   />
                   <Form.Label htmlFor="username">
-                    {t("signup.usernameLabel")}
+                    {t('signup.usernameLabel')}
                   </Form.Label>
                   <Form.Text className="invalid-feedback">
                     {formik.errors.username || null}
@@ -111,7 +111,7 @@ const SingUpPage = () => {
                     id="password"
                     name="password"
                     autoComplete="password"
-                    placeholder={t("signup.passLabel")}
+                    placeholder={t('signup.passLabel')}
                     type="password"
                     value={formik.values.password}
                     disabled={formik.isSubmitting}
@@ -120,7 +120,7 @@ const SingUpPage = () => {
                     onBlur={formik.handleBlur}
                   />
                   <Form.Label htmlFor="password">
-                    {t("signup.passLabel")}
+                    {t('signup.passLabel')}
                   </Form.Label>
                   <Form.Text className="invalid-feedback">
                     {formik.errors.password || null}
@@ -131,7 +131,7 @@ const SingUpPage = () => {
                     id="confirmPassword"
                     name="confirmPassword"
                     autoComplete="confirmPassword"
-                    placeholder={t("signup.confirmPassLabel")}
+                    placeholder={t('signup.confirmPassLabel')}
                     type="password"
                     value={formik.values.confirmPassword}
                     disabled={formik.isSubmitting}
@@ -140,10 +140,10 @@ const SingUpPage = () => {
                     onBlur={formik.handleBlur}
                   />
                   <Form.Label htmlFor="confirmPassword">
-                    {t("signup.confirmPassLabel")}
+                    {t('signup.confirmPassLabel')}
                   </Form.Label>
                   <Form.Text className="invalid-feedback">
-                    {formik.errors.confirmPassword || t("signup.error")}
+                    {formik.errors.confirmPassword || t('signup.error')}
                   </Form.Text>
                 </Form.Floating>
                 <Button
@@ -152,7 +152,7 @@ const SingUpPage = () => {
                   className="w-100"
                   disabled={formik.isSubmitting}
                 >
-                  {t("signup.button")}
+                  {t('signup.button')}
                 </Button>
               </Form>
             </Card.Body>

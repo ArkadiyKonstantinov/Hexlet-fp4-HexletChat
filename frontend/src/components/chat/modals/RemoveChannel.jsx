@@ -1,8 +1,8 @@
-import React from "react";
-import { Modal, Button } from "react-bootstrap";
-import { toast } from "react-toastify";
-import { useSocket } from "../../../hooks/index.jsx";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import { useSocket } from '../../../hooks/index.jsx';
 
 const RemoveChannel = ({ modal, onHide }) => {
   const { socket } = useSocket();
@@ -12,7 +12,7 @@ const RemoveChannel = ({ modal, onHide }) => {
   const handleRemoveChannel = (e) => {
     e.preventDefault();
     try {
-      socket.emit("removeChannel", { id });
+      socket.emit('removeChannel', { id });
       onHide();
       toast.success(t('toast.channelRemoved'));
     } catch (err) {
@@ -29,7 +29,7 @@ const RemoveChannel = ({ modal, onHide }) => {
         <p className="lead">{t('modal.removeConfirm')}</p>
         <Modal.Footer>
           <Button variant="secondary" type="button" onClick={onHide}>
-           {t('modal.cancelButton')} 
+            {t('modal.cancelButton')}
           </Button>
           <Button variant="danger" type="button" onClick={handleRemoveChannel}>
             {t('modal.removeButton')}

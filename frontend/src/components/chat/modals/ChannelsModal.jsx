@@ -1,7 +1,7 @@
-import React from "react";
-import AddChannel from "./AddChannel";
-import RemoveChannel from "./RemoveChannel";
-import RenameChannel from "./RenameChannel";
+import React from 'react';
+import AddChannel from './AddChannel';
+import RemoveChannel from './RemoveChannel';
+import RenameChannel from './RenameChannel';
 
 const modals = {
   addChannel: AddChannel,
@@ -14,7 +14,7 @@ const ChannelsModal = ({ modal, hideModal }) => {
     return null;
   }
 
-  const Component = modals[modal.type] 
+  const Component = modals[modal.type];
   return <Component modal={modal} onHide={hideModal} />;
 };
 
