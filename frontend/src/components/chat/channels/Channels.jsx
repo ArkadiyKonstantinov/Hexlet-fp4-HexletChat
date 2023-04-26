@@ -25,7 +25,7 @@ const Channels = () => {
         <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
           <b>{t('chat.title')}</b>
           <Button
-            variant="qroup-vertical"
+            variant="group-vertical"
             className="p-0 text-primary"
             onClick={() => showModal("addChannel")}
           >
