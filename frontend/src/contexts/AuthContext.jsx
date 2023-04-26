@@ -4,8 +4,7 @@ import { AuthContext } from './index.jsx';
 const AuthProvider = ({ children }) => {
   const currentUsername = JSON.parse(localStorage.getItem('userId'))?.username;
   const [loggedIn, setLoggedIn] = useState(false);
-  const defaultUsername = currentUsername ? currentUsername : null
-  const [username, setUsername] = useState(defaultUsername);
+  const [username, setUsername] = useState(currentUsername ?? null);
 
   const logIn = (newUsername) => {
     setLoggedIn(true);

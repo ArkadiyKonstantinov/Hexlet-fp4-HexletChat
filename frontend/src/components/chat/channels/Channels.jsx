@@ -16,8 +16,7 @@ const Channels = () => {
     id: null,
   });
   const hideModal = () => setModal({ type: null, channelName: null });
-  const showModal = (type, channelName = null, id = null) =>
-    setModal({ type, channelName, id });
+  const showModal = (type, channelName = null, id = null) => setModal({ type, channelName, id });
 
   return (
     <>

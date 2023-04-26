@@ -14,7 +14,7 @@ const Channel = ({ channel, showModal }) => {
   };
 
   const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId
+    (state) => state.channels.currentChannelId,
   );
   if (removable) {
     return (

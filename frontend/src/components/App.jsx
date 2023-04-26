@@ -26,8 +26,7 @@ const PrivateRoute = ({ children }) => {
   );
 };
 
-const App = () => {
-  return (
+const App = () => (
     <div className="d-flex flex-column h-100">
       <BrowserRouter>
         <Header />
@@ -38,8 +37,7 @@ const App = () => {
               <PrivateRoute>
                 <MainPage />
               </PrivateRoute>
-              )
-            }
+              )}
           />
           <Route path={routes.loginPage()} element={<LoginPage />} />
           <Route path={routes.signUpPage()} element={<SingUpPage />} />
@@ -57,6 +55,5 @@ const App = () => {
       />
     </div>
   );
-};
 
 export default App;

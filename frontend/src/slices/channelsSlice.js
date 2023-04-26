@@ -17,15 +17,11 @@ const initialState = channelsAdapter.getInitialState({
 export const fetchInitialData = createAsyncThunk(
   'channels/fetchInitialData',
   async (authHeader) => {
-    try {
-      const { data } = await axios.get(routes.dataPath(), {
-        headers: authHeader,
-      });
-      return data;
-    } catch (err) {
-      throw err;
-    }
-  },
+    const { data } = await axios.get(routes.dataPath(), {
+      headers: authHeader,
+    });
+    return data;
+  }
 );
 
 const channelsSlice = createSlice({
@@ -68,7 +64,7 @@ const channelsSlice = createSlice({
 });
 
 export const channelsSelectors = channelsAdapter.getSelectors(
-  (state) => state.channels
+  (state) => state.channels,
 );
 export const channelsActions = channelsSlice.actions;
 export default channelsSlice.reducer;
