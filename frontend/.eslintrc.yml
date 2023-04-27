@@ -24,6 +24,7 @@ plugins:
   - functional
 
 rules:
+  import/prefer-default-export: 0
   functional/no-expression-statements: 0
   no-param-reassign: 0
   import/extensions: 0
