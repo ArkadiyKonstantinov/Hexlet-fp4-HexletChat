@@ -27,10 +27,10 @@ const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   auth.logOut();
-  //   usernameRef.current.focus();
-  // }, [auth]);
+  useEffect(() => {
+    auth.logOut();
+    usernameRef.current.focus();
+  }, [auth]);
 
   const formik = useFormik({
     initialValues: {
