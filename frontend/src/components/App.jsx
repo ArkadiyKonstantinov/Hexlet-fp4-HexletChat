@@ -33,11 +33,11 @@ const App = () => (
       <Routes>
         <Route
           path={routes.mainPage()}
-          element={
+          element={(
             <PrivateRoute>
               <MainPage />
             </PrivateRoute>
-          }
+          )}
         />
         <Route path={routes.loginPage()} element={<LoginPage />} />
         <Route path={routes.signUpPage()} element={<SingUpPage />} />

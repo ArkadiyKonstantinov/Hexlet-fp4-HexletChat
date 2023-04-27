@@ -21,7 +21,7 @@ export const fetchInitialData = createAsyncThunk(
       headers: authHeader,
     });
     return data;
-  }
+  },
 );
 
 const channelsSlice = createSlice({
