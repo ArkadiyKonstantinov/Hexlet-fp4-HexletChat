@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Image,
   Button,
@@ -20,12 +20,18 @@ import { routes } from '../routes.js';
 
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
-
   const auth = useAuth();
+  const usernameRef = useRef();
+
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  const usernameRef = useRef();
+
+  // useEffect(() => {
+  //   auth.logOut();
+  //   usernameRef.current.focus();
+  // }, [auth]);
+
   const formik = useFormik({
     initialValues: {
       username: '',
