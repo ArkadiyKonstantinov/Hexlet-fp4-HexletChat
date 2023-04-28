@@ -1,7 +1,7 @@
 import { Navbar, Button, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/index.jsx';
-import { routes } from '../routes.js';
+import routes from '../routes.js';
 
 const ChatNavbar = () => {
   const auth = useAuth();

@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import loginImg from '../assets/login.jpg';
 import { useAuth } from '../hooks/index.jsx';
-import { routes } from '../routes.js';
+import routes from '../routes.js';
 
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);

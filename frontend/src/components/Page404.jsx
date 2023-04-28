@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import img404 from '../assets/404.svg';
-import { routes } from '../routes';
+import routes from '../routes';
 
 const Page404 = () => {
   const { t } = useTranslation();

@@ -4,7 +4,7 @@ import {
   createEntityAdapter,
   createAsyncThunk,
 } from '@reduxjs/toolkit';
-import { routes } from '../routes.js';
+import routes from '../routes.js';
 
 const defaultChannelId = 1;
 const channelsAdapter = createEntityAdapter();

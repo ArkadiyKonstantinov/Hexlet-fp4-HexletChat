@@ -11,13 +11,13 @@ import { useSocket } from '../../../hooks/index.jsx';
 
 const RenameChannel = ({ modal, onHide }) => {
   const { socket } = useSocket();
-  const { channelName, id } = modal;
+  const { channelName: currentChannelName, id } = modal;
   const { t } = useTranslation();
 
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsNames = channels
     .map((channel) => channel.name)
-    .filter((name) => name !== channelName);
+    .filter((name) => name !== currentChannelName);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const RenameChannel = ({ modal, onHide }) => {
 
   const formik = useFormik({
     initialValues: {
-      channelName,
+      channelName: currentChannelName,
     },
     onSubmit: (values) => {
       try {

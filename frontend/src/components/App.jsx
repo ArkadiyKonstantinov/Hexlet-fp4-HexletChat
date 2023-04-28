@@ -13,7 +13,7 @@ import MainPage from './MainPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import SingUpPage from './SingUpPage.jsx';
 import { useAuth } from '../hooks/index.jsx';
-import { routes } from '../routes.js';
+import routes from '../routes.js';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();

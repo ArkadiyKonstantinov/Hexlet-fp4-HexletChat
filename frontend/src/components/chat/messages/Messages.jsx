@@ -27,8 +27,8 @@ const Messages = () => {
           <p className="m-0">
             <b>
               #
-              {currentChannel ? currentChannel.name :
-              null}
+              {currentChannel ? currentChannel.name
+                : null}
             </b>
           </p>
           <span className="text-muted">{t('chat.messages', { count })}</span>

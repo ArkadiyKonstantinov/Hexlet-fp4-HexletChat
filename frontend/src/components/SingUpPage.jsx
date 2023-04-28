@@ -15,7 +15,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import singUp from '../assets/singup.jpg';
 import { useAuth } from '../hooks/index.jsx';
-import { routes } from '../routes.js';
+import routes from '../routes.js';
 
 const SingUpPage = () => {
   const [singUpFailed, setSingUpFailed] = useState(false);
