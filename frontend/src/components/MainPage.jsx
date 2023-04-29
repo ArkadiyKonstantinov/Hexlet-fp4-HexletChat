@@ -2,24 +2,28 @@ import React, { useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../hooks/index.jsx';
+
 import Channels from './chat/channels/Channels.jsx';
 import Messages from './chat/messages/Messages.jsx';
+
+import { useAuth, useBackendApi } from '../hooks/index.jsx';
 import { fetchInitialData } from '../slices/channelsSlice.js';
 
 const MainPage = () => {
-  const auth = useAuth();
+  const { getAuthHeader } = useAuth();
   const { t } = useTranslation();
+  const { connectBackend, disconnectBackend } = useBackendApi();
   const dispatch = useDispatch();
   const loadingStatus = useSelector((state) => state.channels.loadingStatus);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const authHeader = auth.getAuthHeader();
-      dispatch(fetchInitialData(authHeader));
+    const authHeader = getAuthHeader();
+    dispatch(fetchInitialData(authHeader));
+    connectBackend();
+    return () => {
+      disconnectBackend();
     };
-    fetchData();
-  }, [dispatch, auth]);
+  }, [dispatch, getAuthHeader, connectBackend, disconnectBackend]);
 
   if (loadingStatus === 'loading') {
     return (

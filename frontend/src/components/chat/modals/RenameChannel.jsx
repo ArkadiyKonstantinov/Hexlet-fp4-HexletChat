@@ -7,10 +7,10 @@ import * as filter from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { channelsSelectors } from '../../../slices/channelsSlice';
-import { useSocket } from '../../../hooks/index.jsx';
+import { useBackendApi } from '../../../hooks/index.jsx';
 
 const RenameChannel = ({ modal, onHide }) => {
-  const { socket } = useSocket();
+  const { renameChannel } = useBackendApi();
   const { channelName: currentChannelName, id } = modal;
   const { t } = useTranslation();
 
@@ -29,10 +29,10 @@ const RenameChannel = ({ modal, onHide }) => {
       channelName: currentChannelName,
     },
     onSubmit: (values) => {
+      const { channelName } = values;
+      const name = filter.clean(channelName);
       try {
-        const { channelName } = values;
-        const name = filter.clean(channelName);
-        socket.emit('renameChannel', { name, id });
+        renameChannel({ name, id });
         formik.setSubmitting(false);
         onHide();
         toast.success(t('toast.channelRenamed'));

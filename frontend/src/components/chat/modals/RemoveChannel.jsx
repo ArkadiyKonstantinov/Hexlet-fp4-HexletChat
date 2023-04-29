@@ -2,17 +2,17 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { useSocket } from '../../../hooks/index.jsx';
+import { useBackendApi } from '../../../hooks/index.jsx';
 
 const RemoveChannel = ({ modal, onHide }) => {
-  const { socket } = useSocket();
+  const { removeChannel } = useBackendApi();
   const { id } = modal;
   const { t } = useTranslation();
 
   const handleRemoveChannel = (e) => {
     e.preventDefault();
     try {
-      socket.emit('removeChannel', { id });
+      removeChannel({ id });
       onHide();
       toast.success(t('toast.channelRemoved'));
     } catch (err) {

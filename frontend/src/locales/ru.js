@@ -57,6 +57,7 @@ const ru = {
     },
     toast: {
       netError: 'Ошибка сети',
+      messageError: 'Не удалось отправить сообщение',
       channelAdded: 'Канал создан',
       channelAddError: 'Не удалось добавить канал',
       channelRemoved: 'Канал удалён',

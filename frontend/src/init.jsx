@@ -8,12 +8,12 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import store from './slices/index.js';
 import App from './components/App.jsx';
 import resources from './locales/index.js';
-import AuthProvider from './contexts/AuthContext.jsx';
-import SocketProvider from './contexts/SocketContext.jsx';
+import AuthProvider from './contexts/AuthProvider.jsx';
+import BackendApiProvider from './contexts/BackendApiProvider.jsx';
 
 const Init = () => {
   const i18n = i18next.createInstance();
-  const socket = io();
+  const socket = io('/', { autoConnect: false });
   const options = {
     resources,
     fallbackLng: 'ru',
@@ -37,11 +37,11 @@ const Init = () => {
       <ErrorBoundary>
         <Provider store={store}>
           <I18nextProvider i18n={i18n}>
-            <SocketProvider socket={socket}>
+            <BackendApiProvider socket={socket}>
               <AuthProvider>
                 <App />
               </AuthProvider>
-            </SocketProvider>
+            </BackendApiProvider>
           </I18nextProvider>
         </Provider>
       </ErrorBoundary>

@@ -4,11 +4,12 @@ import { Form, Button } from 'react-bootstrap';
 import { BsArrowRightSquare } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
 import * as filter from 'leo-profanity';
-import { useAuth, useSocket } from '../../../hooks/index.jsx';
+import { toast } from 'react-toastify';
+import { useAuth, useBackendApi } from '../../../hooks/index.jsx';
 
 const MessageForm = ({ currentChannelId }) => {
   const auth = useAuth();
-  const { socket } = useSocket();
+  const { newMessage } = useBackendApi();
   const { t } = useTranslation();
   const messageRef = useRef();
   useEffect(() => {
@@ -25,9 +26,14 @@ const MessageForm = ({ currentChannelId }) => {
         channelId: currentChannelId,
         username: auth.username,
       };
-      socket.emit('newMessage', message);
-      formik.setSubmitting(false);
-      formik.values.body = '';
+      try {
+        newMessage(message);
+        formik.setSubmitting(false);
+        formik.resetForm();
+      } catch (err) {
+        toast.error(t('toast.messageError'));
+        console.error(err);
+      }
     },
   });
 

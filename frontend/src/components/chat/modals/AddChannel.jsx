@@ -6,11 +6,11 @@ import * as Yup from 'yup';
 import * as filter from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { useSocket } from '../../../hooks/index.jsx';
+import { useBackendApi } from '../../../hooks/index.jsx';
 import { channelsSelectors } from '../../../slices/channelsSlice';
 
 const AddChannel = ({ onHide }) => {
-  const { socket } = useSocket();
+  const { newChannel } = useBackendApi();
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsNames = channels.map((channel) => channel.name);
   const { t } = useTranslation();
@@ -25,10 +25,10 @@ const AddChannel = ({ onHide }) => {
       channelName: '',
     },
     onSubmit: (values) => {
+      const { channelName } = values;
+      const name = filter.clean(channelName);
       try {
-        const { channelName } = values;
-        const name = filter.clean(channelName);
-        socket.emit('newChannel', { name });
+        newChannel({ name });
         formik.setSubmitting(false);
         onHide();
         toast.success(t('toast.channelAdded'));
