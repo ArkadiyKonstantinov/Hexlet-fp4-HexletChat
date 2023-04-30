@@ -1,10 +1,13 @@
 import React, { useRef, useEffect } from 'react';
-import { useFormik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
 import { BsArrowRightSquare } from 'react-icons/bs';
+
+import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 import * as filter from 'leo-profanity';
 import { toast } from 'react-toastify';
+
 import { useAuth, useBackendApi } from '../../../hooks/index.jsx';
 
 const MessageForm = ({ currentChannelId }) => {
@@ -14,20 +17,25 @@ const MessageForm = ({ currentChannelId }) => {
   const messageRef = useRef();
   useEffect(() => {
     messageRef.current.focus();
-  }, []);
+  }, [currentChannelId]);
 
   const formik = useFormik({
     initialValues: {
       body: '',
     },
-    onSubmit: (values) => {
+    validationSchema: Yup.object({
+      body: Yup.string()
+        .trim()
+        .required(),
+    }),
+    onSubmit: async (values) => {
       const message = {
         text: filter.clean(values.body),
         channelId: currentChannelId,
         username: auth.username,
       };
       try {
-        newMessage(message);
+        await newMessage(message);
         formik.setSubmitting(false);
         formik.resetForm();
       } catch (err) {
@@ -58,10 +66,11 @@ const MessageForm = ({ currentChannelId }) => {
           />
           <Button
             type="sybmit"
-            disabled={formik.isSubmitting}
             variant="group-vertical"
+            className="text-primary border-0"
+            disabled={formik.isSubmitting || formik.errors.body}
           >
-            <BsArrowRightSquare />
+            <BsArrowRightSquare size={25} />
             <span className="visually-hidden">{t('chat.sendButton')}</span>
           </Button>
         </Form.Group>

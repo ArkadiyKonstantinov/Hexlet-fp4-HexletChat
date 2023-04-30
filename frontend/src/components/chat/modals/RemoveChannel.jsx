@@ -9,10 +9,10 @@ const RemoveChannel = ({ modal, onHide }) => {
   const { id } = modal;
   const { t } = useTranslation();
 
-  const handleRemoveChannel = (e) => {
+  const handleRemoveChannel = async (e) => {
     e.preventDefault();
     try {
-      removeChannel({ id });
+      await removeChannel({ id });
       onHide();
       toast.success(t('toast.channelRemoved'));
     } catch (err) {

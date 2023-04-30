@@ -9,11 +9,13 @@ import {
   Col,
 } from 'react-bootstrap';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
+
 import axios from 'axios';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+
 import loginImg from '../assets/login.jpg';
 import { useAuth } from '../hooks/index.jsx';
 import routes from '../routes.js';
@@ -41,6 +43,8 @@ const LoginPage = () => {
       username: Yup.string().required(t('valid.required')),
       password: Yup.string().required(t('valid.required')),
     }),
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
@@ -65,8 +69,6 @@ const LoginPage = () => {
         throw err;
       }
     },
-    validateOnChange: false,
-    validateOnBlur: false,
   });
 
   return (

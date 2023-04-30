@@ -9,10 +9,12 @@ import {
   Button,
 } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+
 import singUp from '../assets/singup.jpg';
 import { useAuth } from '../hooks/index.jsx';
 import routes from '../routes.js';
@@ -49,6 +51,8 @@ const SingUpPage = () => {
         .oneOf([Yup.ref('password'), null], t('valid.confirmPass'))
         .required(t('valid.required')),
     }),
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: async (values) => {
       setSingUpFailed(false);
       try {
@@ -72,8 +76,6 @@ const SingUpPage = () => {
         console.error(err);
       }
     },
-    validateOnChange: false,
-    validateOnBlur: false,
   });
 
   return (

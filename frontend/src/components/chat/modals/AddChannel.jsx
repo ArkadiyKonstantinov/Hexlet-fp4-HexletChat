@@ -24,19 +24,6 @@ const AddChannel = ({ onHide }) => {
     initialValues: {
       channelName: '',
     },
-    onSubmit: (values) => {
-      const { channelName } = values;
-      const name = filter.clean(channelName);
-      try {
-        newChannel({ name });
-        formik.setSubmitting(false);
-        onHide();
-        toast.success(t('toast.channelAdded'));
-      } catch (err) {
-        toast.error(t('toast.channelAddError'));
-        console.error(err);
-      }
-    },
     validationSchema: Yup.object({
       channelName: Yup.string()
         .trim()
@@ -47,6 +34,18 @@ const AddChannel = ({ onHide }) => {
     }),
     validateOnChange: false,
     validateOnBlur: false,
+    onSubmit: async ({ channelName }) => {
+      const name = filter.clean(channelName);
+      try {
+        await newChannel({ name });
+        onHide();
+        toast.success(t('toast.channelAdded'));
+      } catch (err) {
+        formik.setSubmitting(false);
+        toast.error(t('toast.channelAddError'));
+        console.error(err);
+      }
+    },
   });
 
   return (
@@ -66,6 +65,7 @@ const AddChannel = ({ onHide }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.channelName}
+              disabled={formik.isSubmitting}
               isInvalid={
                 formik.errors.channelName && formik.touched.channelName
               }
@@ -79,7 +79,11 @@ const AddChannel = ({ onHide }) => {
             <Button variant="secondary" type="button" onClick={onHide}>
               {t('modal.cancelButton')}
             </Button>
-            <Button variant="primary" type="submit">
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={formik.isSubmitting}
+            >
               {t('modal.addButton')}
             </Button>
           </Modal.Footer>

@@ -28,19 +28,6 @@ const RenameChannel = ({ modal, onHide }) => {
     initialValues: {
       channelName: currentChannelName,
     },
-    onSubmit: (values) => {
-      const { channelName } = values;
-      const name = filter.clean(channelName);
-      try {
-        renameChannel({ name, id });
-        formik.setSubmitting(false);
-        onHide();
-        toast.success(t('toast.channelRenamed'));
-      } catch (err) {
-        toast.error(t('toast.channelRenameError'));
-        console.error(err);
-      }
-    },
     validationSchema: Yup.object({
       channelName: Yup.string()
         .trim()
@@ -51,6 +38,18 @@ const RenameChannel = ({ modal, onHide }) => {
     }),
     validateOnChange: false,
     validateOnBlur: false,
+    onSubmit: async ({ channelName }) => {
+      const name = filter.clean(channelName);
+      try {
+        await renameChannel({ name, id });
+        formik.setSubmitting(false);
+        onHide();
+        toast.success(t('toast.channelRenamed'));
+      } catch (err) {
+        toast.error(t('toast.channelRenameError'));
+        console.error(err);
+      }
+    },
   });
 
   return (
