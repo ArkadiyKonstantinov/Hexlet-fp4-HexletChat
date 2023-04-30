@@ -44,7 +44,6 @@ const MainPage = () => {
   const { connectBackend, disconnectBackend } = useBackendApi();
   const dispatch = useDispatch();
   const loadingStatus = useSelector(channelsSelectors.getLoadintStatus);
-  console.log(loadingStatus);
 
   useEffect(() => {
     const authHeader = getAuthHeader();

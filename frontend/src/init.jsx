@@ -16,7 +16,8 @@ const Init = () => {
   const socket = io('/', { autoConnect: false });
   const options = {
     resources,
-    fallbackLng: 'ru',
+    lng: 'ru',
+    fallbackLng: ['ru', 'en'],
     interpolation: {
       escapeValue: false,
     },

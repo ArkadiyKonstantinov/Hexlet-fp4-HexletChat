@@ -3,6 +3,8 @@ const ru = {
     header: {
       title: 'Hexlet Chat',
       button: 'Выйти',
+      ru: 'Русский',
+      en: 'English',
     },
     login: {
       title: 'Войти',

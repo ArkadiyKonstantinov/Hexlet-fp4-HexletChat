@@ -1,10 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import { BsPlusSquare } from 'react-icons/bs';
 import { Col, Button, Nav } from 'react-bootstrap';
+
+import { useTranslation } from 'react-i18next';
+
 import Channel from './Channel.jsx';
 import ChannelsModal from '../modals/ChannelsModal.jsx';
+
 import { modalActions } from '../../../slices/modalSlice.js';
 import { channelsSelectors } from '../../../slices/channelsSlice.js';
 
