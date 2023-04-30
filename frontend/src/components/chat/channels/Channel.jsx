@@ -1,13 +1,23 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Dropdown, Nav } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { channelsActions } from '../../../slices/channelsSlice';
 
-const Channel = ({ channel, showModal }) => {
+import { useTranslation } from 'react-i18next';
+
+import { modalActions } from '../../../slices/modalSlice.js';
+import { channelsActions } from '../../../slices/channelsSlice.js';
+
+const Channel = ({ channel }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { id, name, removable } = channel;
+
+  const handleRenameChannel = () => dispatch(
+    modalActions.showModal({ type: 'renameChannel', data: { id, name } }),
+  );
+  const handleRemoveChannel = () => dispatch(
+    modalActions.showModal({ type: 'removeChannel', data: { id } }),
+  );
 
   const setCurrent = (channelId) => {
     dispatch(channelsActions.setCurrentChannel(channelId));
@@ -34,10 +44,10 @@ const Channel = ({ channel, showModal }) => {
             <span className="visually-hidden">{t('chat.dropdownTitle')}</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => showModal('removeChannel', name, id)}>
+            <Dropdown.Item onClick={handleRemoveChannel}>
               {t('chat.dropdownRemove')}
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => showModal('renameChannel', name, id)}>
+            <Dropdown.Item onClick={handleRenameChannel}>
               {t('chat.dropdownRename')}
             </Dropdown.Item>
           </Dropdown.Menu>

@@ -8,10 +8,11 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { channelsSelectors } from '../../../slices/channelsSlice';
 import { useBackendApi } from '../../../hooks/index.jsx';
+import { modalSelectors } from '../../../slices/modalSlice';
 
-const RenameChannel = ({ modal, onHide }) => {
+const RenameChannel = ({ onHide }) => {
   const { renameChannel } = useBackendApi();
-  const { channelName: currentChannelName, id } = modal;
+  const { name: currentChannelName, id } = useSelector(modalSelectors.getData);
   const { t } = useTranslation();
 
   const channels = useSelector(channelsSelectors.selectAll);
@@ -53,7 +54,7 @@ const RenameChannel = ({ modal, onHide }) => {
   });
 
   return (
-    <Modal show centered>
+    <>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>{t('modal.renameTitle')}</Modal.Title>
       </Modal.Header>
@@ -88,7 +89,7 @@ const RenameChannel = ({ modal, onHide }) => {
           </Modal.Footer>
         </Form>
       </Modal.Body>
-    </Modal>
+    </>
   );
 };
 

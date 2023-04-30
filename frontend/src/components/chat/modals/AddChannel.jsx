@@ -49,7 +49,7 @@ const AddChannel = ({ onHide }) => {
   });
 
   return (
-    <Modal show centered>
+    <>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>{t('modal.addTitle')}</Modal.Title>
       </Modal.Header>
@@ -89,7 +89,7 @@ const AddChannel = ({ onHide }) => {
           </Modal.Footer>
         </Form>
       </Modal.Body>
-    </Modal>
+    </>
   );
 };
 

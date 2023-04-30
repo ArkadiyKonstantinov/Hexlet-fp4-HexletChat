@@ -1,12 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { Modal, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { useBackendApi } from '../../../hooks/index.jsx';
 
-const RemoveChannel = ({ modal, onHide }) => {
+import { useBackendApi } from '../../../hooks/index.jsx';
+import { modalSelectors } from '../../../slices/modalSlice.js';
+
+const RemoveChannel = ({ onHide }) => {
   const { removeChannel } = useBackendApi();
-  const { id } = modal;
+  const { id } = useSelector(modalSelectors.getData);
+  console.log(id);
   const { t } = useTranslation();
 
   const handleRemoveChannel = async (e) => {
@@ -16,12 +21,12 @@ const RemoveChannel = ({ modal, onHide }) => {
       onHide();
       toast.success(t('toast.channelRemoved'));
     } catch (err) {
-      toast.success(t('toast.channelRemoveError'));
+      toast.error(t('toast.channelRemoveError'));
       console.error(err);
     }
   };
   return (
-    <Modal show centered>
+    <>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>{t('modal.removeTitle')}</Modal.Title>
       </Modal.Header>
@@ -36,7 +41,7 @@ const RemoveChannel = ({ modal, onHide }) => {
           </Button>
         </Modal.Footer>
       </Modal.Body>
-    </Modal>
+    </>
   );
 };
 
