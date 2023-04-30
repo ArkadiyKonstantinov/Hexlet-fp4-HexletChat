@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 
 import { useTranslation } from 'react-i18next';
+
 import MessageForm from './MessageForm.jsx';
 import { channelsSelectors } from '../../../slices/channelsSlice.js';
 import { messagesSelectors } from '../../../slices/messagesSlice.js';
@@ -38,7 +39,7 @@ const Messages = () => {
             );
           })}
         </div>
-        <MessageForm currentChannelId={currentChannel?.id} />
+        <MessageForm />
       </div>
     </Col>
   );

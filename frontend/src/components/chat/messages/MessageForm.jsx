@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { BsArrowRightSquare } from 'react-icons/bs';
 
@@ -9,12 +10,15 @@ import * as filter from 'leo-profanity';
 import { toast } from 'react-toastify';
 
 import { useAuth, useBackendApi } from '../../../hooks/index.jsx';
+import { channelsSelectors } from '../../../slices/channelsSlice.js';
 
-const MessageForm = ({ currentChannelId }) => {
+const MessageForm = () => {
   const auth = useAuth();
   const { newMessage } = useBackendApi();
   const { t } = useTranslation();
   const messageRef = useRef();
+  const currentChannelId = useSelector(channelsSelectors.getCurrentId);
+
   useEffect(() => {
     messageRef.current.focus();
   }, [currentChannelId]);

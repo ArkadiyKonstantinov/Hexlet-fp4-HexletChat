@@ -74,6 +74,7 @@ export const channelsSelectors = {
     const { currentChannelId } = state.channels;
     return selctors.selectById(state, currentChannelId);
   },
+  getCurrentId: (state) => state.channels.currentChannelId,
   getChannelNames: (state) => selctors.selectAll(state)
     .map((channel) => channel.name),
 };
