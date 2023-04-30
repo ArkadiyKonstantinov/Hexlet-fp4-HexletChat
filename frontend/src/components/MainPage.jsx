@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -7,14 +7,44 @@ import Channels from './chat/channels/Channels.jsx';
 import Messages from './chat/messages/Messages.jsx';
 
 import { useAuth, useBackendApi } from '../hooks/index.jsx';
-import { channelsSelectors, fetchInitialData } from '../slices/channelsSlice.js';
+import {
+  channelsSelectors,
+  fetchInitialData,
+} from '../slices/channelsSlice.js';
+
+const Chat = () => (
+  <>
+    <Channels />
+    <Messages />
+  </>
+);
+
+const Loading = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="w-auto m-auto">
+      <Spinner variant="primary" animation="grow" role="status">
+        <span className="visually-hidden">{t('chat.loading')}</span>
+      </Spinner>
+    </div>
+  );
+};
+
+const Wrapper = ({ children }) => (
+  <Container className="h-100 my-4 overflow-hidden rounded shadow">
+    <Row className="h-100 bg-white flex-md-row">
+      {children}
+    </Row>
+  </Container>
+);
 
 const MainPage = () => {
   const { getAuthHeader } = useAuth();
-  const { t } = useTranslation();
   const { connectBackend, disconnectBackend } = useBackendApi();
   const dispatch = useDispatch();
   const loadingStatus = useSelector(channelsSelectors.getLoadintStatus);
+  console.log(loadingStatus);
 
   useEffect(() => {
     const authHeader = getAuthHeader();
@@ -25,25 +55,22 @@ const MainPage = () => {
     };
   }, [dispatch, getAuthHeader, connectBackend, disconnectBackend]);
 
-  if (loadingStatus === 'loading') {
-    return (
-      <div className="text-center alight-middle display-1 h-100">
-        {t('chat.loading')}
-      </div>
-    );
+  switch (loadingStatus) {
+    case 'loading':
+      return (
+        <Wrapper>
+          <Loading />
+        </Wrapper>
+      );
+    case 'loaded':
+      return (
+        <Wrapper>
+          <Chat />
+        </Wrapper>
+      );
+    default:
+      return null;
   }
-
-  if (loadingStatus === 'loaded') {
-    return (
-      <Container className="h-100 my-4 overflow-hidden rounded shadow">
-        <Row className="h-100 bg-white flex-md-row">
-          <Channels />
-          <Messages />
-        </Row>
-      </Container>
-    );
-  }
-  return null;
 };
 
 export default MainPage;
