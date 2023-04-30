@@ -11,10 +11,10 @@ import { channelsSelectors } from '../../../slices/channelsSlice';
 
 const AddChannel = ({ onHide }) => {
   const { newChannel } = useBackendApi();
-  const channels = useSelector(channelsSelectors.selectAll);
-  const channelsNames = channels.map((channel) => channel.name);
   const { t } = useTranslation();
   const inputRef = useRef();
+
+  const channelsNames = useSelector(channelsSelectors.getChannelNames);
 
   useEffect(() => {
     inputRef.current.focus();

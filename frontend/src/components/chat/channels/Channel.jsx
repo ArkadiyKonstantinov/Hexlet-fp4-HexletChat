@@ -26,6 +26,7 @@ const Channel = ({ channel }) => {
   const currentChannelId = useSelector(
     (state) => state.channels.currentChannelId,
   );
+
   if (removable) {
     return (
       <Nav.Item key={id} as="li" className="w-100">

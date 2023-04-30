@@ -11,7 +11,6 @@ import { modalSelectors } from '../../../slices/modalSlice.js';
 const RemoveChannel = ({ onHide }) => {
   const { removeChannel } = useBackendApi();
   const { id } = useSelector(modalSelectors.getData);
-  console.log(id);
   const { t } = useTranslation();
 
   const handleRemoveChannel = async (e) => {

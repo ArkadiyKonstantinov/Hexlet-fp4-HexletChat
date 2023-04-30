@@ -7,14 +7,14 @@ import Channels from './chat/channels/Channels.jsx';
 import Messages from './chat/messages/Messages.jsx';
 
 import { useAuth, useBackendApi } from '../hooks/index.jsx';
-import { fetchInitialData } from '../slices/channelsSlice.js';
+import { channelsSelectors, fetchInitialData } from '../slices/channelsSlice.js';
 
 const MainPage = () => {
   const { getAuthHeader } = useAuth();
   const { t } = useTranslation();
   const { connectBackend, disconnectBackend } = useBackendApi();
   const dispatch = useDispatch();
-  const loadingStatus = useSelector((state) => state.channels.loadingStatus);
+  const loadingStatus = useSelector(channelsSelectors.getLoadintStatus);
 
   useEffect(() => {
     const authHeader = getAuthHeader();
@@ -33,14 +33,17 @@ const MainPage = () => {
     );
   }
 
-  return (
-    <Container className="h-100 my-4 overflow-hidden rounded shadow">
-      <Row className="h-100 bg-white flex-md-row">
-        <Channels />
-        <Messages />
-      </Row>
-    </Container>
-  );
+  if (loadingStatus === 'loaded') {
+    return (
+      <Container className="h-100 my-4 overflow-hidden rounded shadow">
+        <Row className="h-100 bg-white flex-md-row">
+          <Channels />
+          <Messages />
+        </Row>
+      </Container>
+    );
+  }
+  return null;
 };
 
 export default MainPage;

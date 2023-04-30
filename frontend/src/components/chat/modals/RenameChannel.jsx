@@ -15,10 +15,7 @@ const RenameChannel = ({ onHide }) => {
   const { name: currentChannelName, id } = useSelector(modalSelectors.getData);
   const { t } = useTranslation();
 
-  const channels = useSelector(channelsSelectors.selectAll);
-  const channelsNames = channels
-    .map((channel) => channel.name)
-    .filter((name) => name !== currentChannelName);
+  const channelsNames = useSelector(channelsSelectors.getChannelNames);
   const inputRef = useRef();
 
   useEffect(() => {

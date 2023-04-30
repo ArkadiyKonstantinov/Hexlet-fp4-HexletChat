@@ -10,7 +10,7 @@ import routes from '../routes.js';
 const defaultChannelId = 1;
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState({
-  loadingStatus: 'idle',
+  loadingStatus: 'notLoaded',
   error: null,
   currentChannelId: defaultChannelId,
 });
@@ -54,7 +54,7 @@ const channelsSlice = createSlice({
       .addCase(fetchInitialData.fulfilled, (state, { payload }) => {
         state.currentChannelId = payload.currentChannelId;
         channelsAdapter.setAll(state, payload.channels);
-        state.loadingStatus = 'idle';
+        state.loadingStatus = 'loaded';
         state.error = null;
       })
       .addCase(fetchInitialData.rejected, (state, action) => {
@@ -64,8 +64,18 @@ const channelsSlice = createSlice({
   },
 });
 
-export const channelsSelectors = channelsAdapter.getSelectors(
+const selctors = channelsAdapter.getSelectors(
   (state) => state.channels,
 );
+export const channelsSelectors = {
+  selectAll: selctors.selectAll,
+  getLoadintStatus: (state) => state.channels.loadingStatus,
+  getCurrent: (state) => {
+    const { currentChannelId } = state.channels;
+    return selctors.selectById(state, currentChannelId);
+  },
+  getChannelNames: (state) => selctors.selectAll(state)
+    .map((channel) => channel.name),
+};
 export const channelsActions = channelsSlice.actions;
 export default channelsSlice.reducer;

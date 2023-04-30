@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
+
 import { useTranslation } from 'react-i18next';
 import MessageForm from './MessageForm.jsx';
 import { channelsSelectors } from '../../../slices/channelsSlice.js';
@@ -8,16 +9,8 @@ import { messagesSelectors } from '../../../slices/messagesSlice.js';
 
 const Messages = () => {
   const { t } = useTranslation();
-  const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId,
-  );
-  const currentChannel = useSelector(
-    (state) => channelsSelectors.selectById(state, currentChannelId),
-  );
-  const messages = useSelector(messagesSelectors.selectAll);
-  const currentChannelMessages = messages.filter(
-    ({ channelId }) => channelId === currentChannelId,
-  );
+  const currentChannel = useSelector(channelsSelectors.getCurrent);
+  const currentChannelMessages = useSelector(messagesSelectors.getCurrent);
   const count = currentChannelMessages.length;
 
   return (
@@ -45,7 +38,7 @@ const Messages = () => {
             );
           })}
         </div>
-        <MessageForm currentChannelId={currentChannelId} />
+        <MessageForm currentChannelId={currentChannel?.id} />
       </div>
     </Col>
   );

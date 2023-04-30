@@ -15,7 +15,6 @@ const modals = {
 };
 
 const ChannelsModal = () => {
-  // console.log(useSelector(modalSelectors.getState));
   const dispatch = useDispatch();
   const isOpened = useSelector(modalSelectors.isOpened);
   const type = useSelector(modalSelectors.getType);
