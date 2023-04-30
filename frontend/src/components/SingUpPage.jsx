@@ -10,7 +10,6 @@ import {
 } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +21,7 @@ import routes from '../routes.js';
 const SingUpPage = () => {
   const [singUpFailed, setSingUpFailed] = useState(false);
 
-  const auth = useAuth();
+  const { signUp } = useAuth();
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -48,21 +47,15 @@ const SingUpPage = () => {
         .min(6, t('valid.minPass'))
         .required(t('valid.required')),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], t('valid.confirmPass'))
+        .oneOf([Yup.ref('password')], t('valid.confirmPass'))
         .required(t('valid.required')),
     }),
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values) => {
+    onSubmit: async ({ username, password }) => {
       setSingUpFailed(false);
       try {
-        const { username, password } = values;
-        const { data } = await axios.post('/api/v1/signup', {
-          username,
-          password,
-        });
-        localStorage.setItem('userId', JSON.stringify(data));
-        auth.logIn(username);
+        await signUp({ username, password });
         const { from } = location.state || {
           from: { pathname: routes.mainPage() },
         };
@@ -104,7 +97,7 @@ const SingUpPage = () => {
                   <Form.Label htmlFor="username">
                     {t('signup.usernameLabel')}
                   </Form.Label>
-                  <Form.Text className="invalid-feedback">
+                  <Form.Text className="invalid-tooltip">
                     {formik.errors.username || null}
                   </Form.Text>
                 </Form.Floating>
@@ -124,7 +117,7 @@ const SingUpPage = () => {
                   <Form.Label htmlFor="password">
                     {t('signup.passLabel')}
                   </Form.Label>
-                  <Form.Text className="invalid-feedback">
+                  <Form.Text className="invalid-tooltip">
                     {formik.errors.password || null}
                   </Form.Text>
                 </Form.Floating>
@@ -144,7 +137,7 @@ const SingUpPage = () => {
                   <Form.Label htmlFor="confirmPassword">
                     {t('signup.confirmPassLabel')}
                   </Form.Label>
-                  <Form.Text className="invalid-feedback">
+                  <Form.Text className="invalid-tooltip">
                     {formik.errors.confirmPassword || t('signup.error')}
                   </Form.Text>
                 </Form.Floating>

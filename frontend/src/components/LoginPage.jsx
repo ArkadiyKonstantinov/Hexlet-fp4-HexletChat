@@ -10,7 +10,6 @@ import {
 } from 'react-bootstrap';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 
-import axios from 'axios';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +21,7 @@ import routes from '../routes.js';
 
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
-  const auth = useAuth();
+  const { logIn, logOut } = useAuth();
   const usernameRef = useRef();
 
   const { t } = useTranslation();
@@ -30,9 +29,9 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    auth.logOut();
+    logOut();
     usernameRef.current.focus();
-  }, [auth]);
+  }, [logOut]);
 
   const formik = useFormik({
     initialValues: {
@@ -48,9 +47,7 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
-        const { data } = await axios.post(routes.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(data));
-        auth.logIn(data.username);
+        await logIn(values);
         const { from } = location.state || {
           from: { pathname: routes.mainPage() },
         };
