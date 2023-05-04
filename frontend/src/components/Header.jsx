@@ -55,7 +55,7 @@ const LanguageSelector = () => {
             key={lng}
             id={lng}
             type="radio"
-            variant="secondary"
+            variant="outline-primary"
             name="radio"
             value={lng}
             checked={currentLng === lng}

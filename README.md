@@ -25,22 +25,26 @@ The app will be available on _http://localhost:3000_
 [![Bootstrap][Bootstrap-badge]][Bootstrap-url]
 [![Axios][Axios-badge]][Axios-url]
 [![i18next][i18next-badge]][i18next-url]
+[![Socket.io][Socket.io-badge]][Socket.io-url]
 [![Formik][Formik-badge]][Formik-url]
 
-[React-badge]: https://img.shields.io/badge/React-087ea4?style=flat&logo=react&logoColor=white
+[React-badge]: https://img.shields.io/badge/React-087ea4?style=for-the-badge&logo=react&logoColor=white
 [React-url]: https://react.dev
 
-[Redux-badge]: https://img.shields.io/badge/Redux-764abc?style=flat&logo=redux
+[Redux-badge]: https://img.shields.io/badge/Redux-764abc?style=for-the-badge&logo=redux
 [Redux-url]: https://redux.js.org
 
-[Bootstrap-badge]: https://img.shields.io/badge/Bootstrap-712CF9?style=flat&logo=bootstrap&logoColor=white
+[Bootstrap-badge]: https://img.shields.io/badge/Bootstrap-712CF9?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 
-[i18next-badge]: https://img.shields.io/badge/i18next-26A69A?style=flat&logo=i18next&logoColor=white
+[i18next-badge]: https://img.shields.io/badge/i18next-26A69A?style=for-the-badge&logo=i18next&logoColor=white
 [i18next-url]: https://www.i18next.com
 
-[Axios-badge]: https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white
+[Axios-badge]: https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white
 [Axios-url]: https://axios-http.com
 
-[Formik-badge]: https://img.shields.io/badge/Formik-357af3?style=flat&logo=formik
+[Formik-badge]: https://img.shields.io/badge/Formik-357af3?style=for-the-badge&logo=formik
 [Formik-url]: https://formik.org
+
+[Socket.io-badge]: https://img.shields.io/badge/Socket.io-000000?style=for-the-badge&logo=socket.io
+[Socket.io-url]: https://socket.io/
