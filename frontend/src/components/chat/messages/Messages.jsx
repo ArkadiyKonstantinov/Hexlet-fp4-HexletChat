@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 
@@ -14,6 +14,14 @@ const Messages = () => {
   const currentChannel = useSelector(channelsSelectors.getCurrent);
   const messages = useSelector(messagesSelectors.getCurrent);
   const count = messages.length;
+
+  const scrollRef = useRef();
+  useEffect(() => {
+    scrollRef.current.scrollIntoView({
+      behavior: 'instant',
+      block: 'end',
+    });
+  }, [count]);
 
   return (
     <Col className="p-0 h-100">
@@ -35,6 +43,7 @@ const Messages = () => {
               <Message key={id} message={message} />
             );
           })}
+          <div className="scroll-marker" ref={scrollRef} />
         </div>
         <MessageForm />
       </div>
