@@ -5,14 +5,15 @@ import { Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import MessageForm from './MessageForm.jsx';
+import Message from './Message.jsx';
 import { channelsSelectors } from '../../../slices/channelsSlice.js';
 import { messagesSelectors } from '../../../slices/messagesSlice.js';
 
 const Messages = () => {
   const { t } = useTranslation();
   const currentChannel = useSelector(channelsSelectors.getCurrent);
-  const currentChannelMessages = useSelector(messagesSelectors.getCurrent);
-  const count = currentChannelMessages.length;
+  const messages = useSelector(messagesSelectors.getCurrent);
+  const count = messages.length;
 
   return (
     <Col className="p-0 h-100">
@@ -28,14 +29,10 @@ const Messages = () => {
           <span className="text-muted">{t('chat.messages', { count })}</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
-          {currentChannelMessages.map((message) => {
-            const { text, id, username } = message;
+          {messages.map((message) => {
+            const { id } = message;
             return (
-              <div key={id} className="text-break mb-2">
-                <b>{username}</b>
-                :
-                {text}
-              </div>
+              <Message key={id} message={message} />
             );
           })}
         </div>

@@ -13,6 +13,9 @@ extends:
   - plugin:react-hooks/recommended
 
 parserOptions:
+  babelOptions:
+    presets: 
+    - '@babel/preset-react'
   ecmaFeatures:
     jsx: true
   ecmaVersion: latest
