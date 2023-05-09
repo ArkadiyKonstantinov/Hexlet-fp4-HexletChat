@@ -2,9 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+
 import * as Yup from 'yup';
 import * as filter from 'leo-profanity';
 import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
+
 import { useTranslation } from 'react-i18next';
 import { useBackendApi } from '../../../hooks/index.jsx';
 import { channelsSelectors } from '../../../slices/channelsSlice';
@@ -13,6 +16,7 @@ const AddChannel = ({ onHide }) => {
   const { newChannel } = useBackendApi();
   const { t } = useTranslation();
   const inputRef = useRef();
+  const rollbar = useRollbar();
 
   const channelsNames = useSelector(channelsSelectors.getChannelNames);
 
@@ -43,6 +47,7 @@ const AddChannel = ({ onHide }) => {
       } catch (err) {
         formik.setSubmitting(false);
         toast.error(t('toast.channelAddError'));
+        rollbar.error(t('toast.channelAddError'), err);
         console.error(err);
       }
     },

@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 
 import loginImg from '../assets/login.jpg';
 import { useAuth } from '../hooks/index.jsx';
@@ -27,6 +28,7 @@ const LoginPage = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const rollbar = useRollbar();
 
   useEffect(() => {
     logOut();
@@ -54,6 +56,7 @@ const LoginPage = () => {
         navigate(from);
       } catch (err) {
         formik.setSubmitting(false);
+        console.error(err);
         if (err.isAxiosError && err.code === 'ERR_BAD_REQUEST') {
           setAuthFailed(true);
           usernameRef.current.select();
@@ -61,9 +64,8 @@ const LoginPage = () => {
         }
         if (err.isAxiosError && err.code === 'ERR_NETWORK') {
           toast.error(t('toast.netError'));
-          return;
+          rollbar.error(t('toast.netError'), err);
         }
-        throw err;
       }
     },
   });

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import * as filter from 'leo-profanity';
 import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 
 import { useAuth, useBackendApi } from '../../../hooks/index.jsx';
 import { channelsSelectors } from '../../../slices/channelsSlice.js';
@@ -18,6 +19,7 @@ const MessageForm = () => {
   const { t } = useTranslation();
   const messageRef = useRef();
   const currentChannelId = useSelector(channelsSelectors.getCurrentId);
+  const rollbar = useRollbar();
 
   useEffect(() => {
     messageRef.current.focus();
@@ -44,6 +46,7 @@ const MessageForm = () => {
         formik.resetForm();
       } catch (err) {
         toast.error(t('toast.messageError'));
+        rollbar.error(t('toast.messageError'), err);
         console.error(err);
       }
     },

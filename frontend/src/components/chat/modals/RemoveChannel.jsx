@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Modal, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 import { useTranslation } from 'react-i18next';
 
 import { useBackendApi } from '../../../hooks/index.jsx';
@@ -12,6 +13,7 @@ const RemoveChannel = ({ onHide }) => {
   const { removeChannel } = useBackendApi();
   const { id } = useSelector(modalSelectors.getData);
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const handleRemoveChannel = async (e) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const RemoveChannel = ({ onHide }) => {
       toast.success(t('toast.channelRemoved'));
     } catch (err) {
       toast.error(t('toast.channelRemoveError'));
+      rollbar.error(t('toast.channelRemoveError'), err);
       console.error(err);
     }
   };

@@ -13,6 +13,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 
 import singUp from '../assets/singup.jpg';
 import { useAuth } from '../hooks/index.jsx';
@@ -25,6 +27,7 @@ const SingUpPage = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const rollbar = useRollbar();
 
   const usernameRef = useRef();
   useEffect(() => {
@@ -63,6 +66,8 @@ const SingUpPage = () => {
       } catch (err) {
         formik.setSubmitting(false);
         if (err.response.status === 409) {
+          toast.error(t('toast.netError'));
+          rollbar.error(t('toast.netError'), err);
           setSingUpFailed(true);
           usernameRef.current.select();
         }

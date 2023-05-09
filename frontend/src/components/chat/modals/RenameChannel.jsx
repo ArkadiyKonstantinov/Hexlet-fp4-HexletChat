@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import * as filter from 'leo-profanity';
 import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 import { useTranslation } from 'react-i18next';
+
 import { channelsSelectors } from '../../../slices/channelsSlice';
 import { useBackendApi } from '../../../hooks/index.jsx';
 import { modalSelectors } from '../../../slices/modalSlice';
@@ -14,6 +17,7 @@ const RenameChannel = ({ onHide }) => {
   const { renameChannel } = useBackendApi();
   const { name: currentChannelName, id } = useSelector(modalSelectors.getData);
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const channelsNames = useSelector(channelsSelectors.getChannelNames);
   const inputRef = useRef();
@@ -45,6 +49,7 @@ const RenameChannel = ({ onHide }) => {
         toast.success(t('toast.channelRenamed'));
       } catch (err) {
         toast.error(t('toast.channelRenameError'));
+        rollbar.error(t('toast.channelRenameError'), err);
         console.error(err);
       }
     },
