@@ -3,6 +3,11 @@
 [![CI](https://github.com/ArkadiyKonstantinov/frontend-project-12/actions/workflows/ci.yml/badge.svg)](https://github.com/ArkadiyKonstantinov/frontend-project-12/actions/workflows/ci.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0da330c292d81475057d/maintainability)](https://codeclimate.com/github/ArkadiyKonstantinov/frontend-project-12/maintainability)
 ---
+
+<div align=center>
+    <img src="hexlet-chat-screenshot.png">
+</div>
+
 ## Description
 Hexlet Chat is an analogue of Slack chat (very simplified version).
 Hexlet Chat is a group chat app with the ability to create an unlimited number of channels. Works in web browser.
